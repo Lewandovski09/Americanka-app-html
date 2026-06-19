@@ -884,7 +884,7 @@ async function startPhoneVerify(){
   }
   document.getElementById('form-reg').style.display='none';
   document.getElementById('form-verify').style.display='block';
-  document.getElementById('verify-phone-display').textContent=phone;
+  document.getElementById('verify-phone-display').textContent=phone+' (надіслано як: '+toE164(phone)+')';
   document.getElementById('verify-code').value='';
   document.getElementById('verify-err').style.display='none';
   const hint=document.getElementById('verify-hint');
