@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>AMERICANKA ★ Пляж 13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D2347;--navy2:#1A3A7A;--navy3:#0A1B36;
+  --sand:#F0C040;--sand2:#D4A017;--sand3:#FBF0CC;--sand4:#FFF8E7;
+  --rust:#C0392B;--rust2:#E74C3C;
+  --cream:#FEF9EC;--cream2:#F5E8C0;
+  --text:#1a1a1a;--text2:#6b6b6b;--border:#DDD0A8;
+  --card:#FFFEF9;--bg:#FBF0CC;
+  --ocean:#0077B6;--teal:#00796B;
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:0;overflow-x:hidden}
+.app{width:100%;max-width:430px;min-height:100vh;display:flex;flex-direction:column;position:relative;background:var(--cream)}
+@media(min-width:460px){.app{min-height:820px;border-radius:20px;box-shadow:0 8px 48px rgba(0,0,0,.22);margin:12px 0}}
+
+/* ── BG SVG fixed ── */
+.bg-art{position:fixed;top:0;left:0;width:100%;max-width:430px;height:100%;pointer-events:none;z-index:0}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--navy);height:54px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:10;border-bottom:3px solid var(--sand)}
+.logo-row{display:flex;align-items:center;gap:9px}
+.logo-title{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:20px;letter-spacing:2px;line-height:1}
+.logo-star{color:var(--sand);font-size:12px;margin:0 2px}
+.logo-sub{color:rgba(255,255,255,.5);font-size:8px;letter-spacing:.6px;text-transform:uppercase}
+.top-av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;cursor:pointer;overflow:hidden;position:relative;flex-shrink:0}
+.ndot{width:9px;height:9px;background:#E74C3C;border-radius:50%;position:absolute;top:-2px;right:-2px;border:2px solid var(--navy);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── BOTTOM NAV ── */
+.bnav{display:flex;background:var(--navy);border-top:2px solid var(--sand2);flex-shrink:0;position:sticky;bottom:0;z-index:10}
+.nbtn{flex:1;padding:7px 2px 9px;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;border-top:3px solid transparent;cursor:pointer;font-size:8px;color:rgba(255,255,255,.45);font-family:'Inter',sans-serif;font-weight:600;letter-spacing:.4px;text-transform:uppercase;transition:all .2s}
+.nbtn.on{color:var(--sand);border-top-color:var(--sand)}
+.nbtn svg{flex-shrink:0}
+
+/* ── CONTENT ── */
+.content{flex:1;overflow-y:auto;padding:14px;padding-bottom:76px;position:relative;z-index:1}
+.screen{display:none}.screen.active{display:block}
+
+/* ── LABELS ── */
+.slbl{font-size:10px;font-weight:700;color:var(--text2);letter-spacing:1px;text-transform:uppercase;margin:16px 0 8px;display:flex;align-items:center;gap:7px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px}
+.card-navy{background:var(--navy);border-color:var(--navy2)}
+.card-gold{background:linear-gradient(135deg,#FBF0CC,#F0C040 200%);border-color:var(--sand2)}
+
+/* ── METRICS ── */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
+.met{background:var(--cream2);border-radius:10px;padding:11px 13px;border:1px solid var(--border)}
+.met .v{font-size:22px;font-weight:700;color:var(--navy)}
+.met .l{font-size:10px;color:var(--text2);margin-top:2px;font-weight:600;letter-spacing:.4px;text-transform:uppercase}
+
+/* ── AVATAR ── */
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+
+/* ── PLAYER ROW ── */
+.prow{display:flex;align-items:center;gap:9px;padding:9px 12px;background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:6px}
+.prow.me{background:#EEF3FF;border-color:var(--navy2)}
+
+/* ── BADGE ── */
+.badge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:700;white-space:nowrap;letter-spacing:.3px}
+.b-live{background:#FFF0F0;color:#C0392B;border:1px solid #F5C6C6}
+.b-done{background:var(--cream2);color:var(--text2);border:1px solid var(--border)}
+.b-pend{background:#FFFBEA;color:#744210;border:1px solid #F6E05E}
+.b-sched{background:#EEF3FF;color:var(--navy2);border:1px solid #B8C8F0}
+.b-m{background:#DBEAFE;color:#1e40af;border:1px solid #93c5fd}
+.b-f{background:#FCE7F3;color:#9d174d;border:1px solid #f9a8d4}
+
+/* ── CHIPS ── */
+.chips{display:flex;gap:5px;overflow-x:auto;padding-bottom:3px;margin-bottom:12px;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{padding:5px 13px;border-radius:20px;font-size:11px;border:1px solid var(--border);background:var(--card);cursor:pointer;color:var(--text2);white-space:nowrap;transition:all .15s;font-weight:500}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+
+/* ── BUTTONS ── */
+.btnp{width:100%;padding:13px;background:var(--navy);color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;font-family:'Inter',sans-serif;letter-spacing:.3px}
+.btnp:hover{background:var(--navy2)}
+.btnp:disabled{background:#bbb;cursor:not-allowed}
+.btno{width:100%;padding:12px;background:transparent;color:var(--navy);border:2px solid var(--navy);border-radius:12px;font-size:14px;cursor:pointer;margin-top:7px;font-weight:700;font-family:'Inter',sans-serif}
+.btnd{width:100%;padding:12px;background:transparent;color:var(--rust);border:1.5px solid var(--rust);border-radius:12px;font-size:14px;cursor:pointer;margin-top:7px;font-family:'Inter',sans-serif}
+.btnsm{padding:7px 14px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:var(--navy);color:#fff;font-family:'Inter',sans-serif}
+
+/* ── INPUTS ── */
+.inp{width:100%;padding:11px 13px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;background:var(--card);color:var(--text);margin-bottom:10px;font-family:'Inter',sans-serif;transition:border-color .15s}
+.inp:focus{outline:none;border-color:var(--navy)}
+.lbl{font-size:11px;color:var(--text2);display:block;margin-bottom:5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
+.auth-bot .lbl{color:rgba(255,255,255,.65)}
+.auth-bot .gbtn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.65)}
+.auth-bot .gbtn.on{background:var(--sand);border-color:var(--sand);color:var(--navy)}
+.auth-bot .chip{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.65)}
+.auth-bot .chip.on{background:var(--sand);border-color:var(--sand);color:var(--navy)}
+.auth-bot > button[onclick*="doLogout"]{color:rgba(255,255,255,.65)}
+.pfield{position:relative;margin-bottom:10px}
+.pfield .inp{margin-bottom:0;padding-right:44px}
+.peye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--text2);display:flex;align-items:center;padding:4px}
+
+/* ── GENDER ── */
+.grow{display:flex;gap:8px;margin-bottom:12px}
+.gbtn{flex:1;padding:10px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:13px;text-align:center;font-family:'Inter',sans-serif;font-weight:600;color:var(--text2);transition:all .15s}
+.gbtn.on{border-color:var(--navy);background:#EEF3FF;color:var(--navy)}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:11px}
+.tbl th{padding:7px 5px;text-align:left;font-size:9px;color:var(--text2);font-weight:700;border-bottom:1.5px solid var(--border);letter-spacing:.5px;text-transform:uppercase}
+.tbl td{padding:8px 5px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr.me-r td{background:#EEF5FF}
+
+/* ── MATCH ROW ── */
+.mrow{padding:10px 12px;background:var(--cream2);border-radius:11px;margin-bottom:7px;border:1px solid transparent}
+.mrow.pend{background:var(--card);border-color:var(--sand2);cursor:pointer}
+.mrow.pend:hover{border-color:var(--navy)}
+.mrow-teams{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.mrow-team{display:flex;align-items:center;gap:5px;flex:1}
+.mrow-team.right{flex-direction:row-reverse}
+.mrow-score{font-size:18px;font-weight:700;color:var(--navy);min-width:48px;text-align:center;flex-shrink:0}
+.mrow-add{font-size:11px;color:var(--navy);text-align:center;font-weight:700;margin-top:4px}
+.mrow-meta{font-size:10px;color:var(--text2);margin-top:4px;display:flex;gap:8px;align-items:center}
+
+/* ── PROGRESS ── */
+.pbar{height:5px;background:var(--cream2);border-radius:3px;overflow:hidden;border:1px solid var(--border)}
+.pfill{height:5px;background:linear-gradient(90deg,var(--navy),var(--rust));border-radius:3px;transition:width .4s}
+
+/* ── TOGGLE ── */
+.tgl{display:flex;background:var(--cream2);border-radius:10px;padding:3px;margin-bottom:13px;border:1px solid var(--border)}
+.tbtn{flex:1;padding:7px;border:none;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:var(--text2);font-weight:600;font-family:'Inter',sans-serif;transition:all .15s}
+.tbtn.on{background:var(--card);color:var(--navy);font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+
+/* ── SCHED CARD ── */
+.schc{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:13px;margin-bottom:8px;display:flex;gap:12px;align-items:flex-start}
+.schd{background:var(--navy);color:#fff;border-radius:10px;padding:7px 10px;text-align:center;min-width:46px;flex-shrink:0}
+.schd .day{font-size:22px;font-weight:700;line-height:1;font-family:'Bebas Neue',sans-serif}
+.schd .mon{font-size:8px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;margin-top:1px}
+
+/* ── ELO BAR ── */
+.ebar{height:6px;border-radius:3px;background:var(--cream2);border:1px solid var(--border)}
+.efill{height:6px;border-radius:3px}
+
+/* ── PHOTO ── */
+.phup{width:72px;height:72px;border-radius:50%;border:2px dashed var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;position:relative;background:var(--cream2)}
+
+/* ── CHAT ── */
+.chatwrap{background:var(--cream2);border-radius:12px;padding:10px;max-height:200px;overflow-y:auto;margin-bottom:8px;border:1px solid var(--border)}
+.cmsg{margin-bottom:8px}
+.cmsg .cn{font-size:10px;font-weight:700;color:var(--navy);margin-bottom:2px}
+.cmsg .ct{font-size:13px;color:var(--text);background:var(--card);padding:8px 11px;border-radius:12px;display:inline-block;max-width:88%;border:1px solid var(--border)}
+.cmsg.mine{text-align:right}
+.cmsg.mine .ct{background:var(--navy);color:#fff;border-color:var(--navy)}
+.chatbar{display:flex;gap:8px;align-items:center;border-top:1px solid var(--border);padding-top:8px}
+.chatinp{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:24px;font-size:14px;background:var(--card);color:var(--text);font-family:'Inter',sans-serif;-webkit-appearance:none;appearance:none}
+.chatinp:focus{outline:none;border-color:var(--navy)}
+.chatsend{width:40px;height:40px;border-radius:50%;background:var(--navy);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+
+/* ── AUTH ── */
+.auth-wrap{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;position:relative;overflow:hidden;justify-content:center}
+.auth-top{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 22px 14px;position:relative;z-index:2}
+.auth-bot{background:var(--navy);border-radius:24px 24px 0 0;padding:22px 22px 28px;position:relative;z-index:2;border-top:2px solid var(--sand2)}
+.atabs{display:flex;background:rgba(255,255,255,.08);border-radius:10px;padding:3px;margin-bottom:18px;border:1px solid rgba(255,255,255,.2)}
+.auth-bot .phup{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
+.atab{flex:1;padding:9px;border:none;border-radius:8px;background:transparent;font-size:13px;cursor:pointer;color:var(--text2);font-family:'Inter',sans-serif;font-weight:600;transition:all .15s}
+.atab.on{background:var(--card);color:var(--navy);font-weight:700}
+.msgerr{font-size:12px;color:#9B1C1C;margin-bottom:10px;padding:10px 13px;background:#FEF2F2;border-radius:9px;border:1px solid #FECACA}
+.msgok{font-size:12px;color:#065F46;margin-bottom:10px;padding:10px 13px;background:#ECFDF5;border-radius:9px;border:1px solid #A7F3D0}
+.msgwarn{font-size:12px;color:#78350F;padding:10px 13px;background:#FFFBEB;border-radius:9px;border:1px solid #FDE68A;margin-bottom:10px}
+
+/* ── SCORE MODAL ── */
+.smod{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:300;max-width:430px;padding:20px}
+.smod-box{background:var(--card);border-radius:20px;padding:22px 18px;width:100%;max-width:380px}
+.sinputs{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:14px 0}
+.sinp{text-align:center;padding:12px 0;font-size:30px;font-weight:700;border:1.5px solid var(--border);border-radius:12px;background:var(--card);color:var(--text);width:100%;font-family:'Inter',sans-serif}
+.sinp:focus{outline:none;border-color:var(--navy)}
+
+/* ── COURT SELECT ── */
+.court-opt{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;margin-bottom:7px;background:var(--card);transition:all .15s}
+.court-opt.on{border-color:var(--navy);background:#EEF3FF}
+.court-chk{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s}
+.court-chk.on{background:var(--navy);border-color:var(--navy)}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+<!-- BEACH BACKGROUND ART -->
+<svg class="bg-art" viewBox="0 0 430 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bgG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FBF0CC"/>
+      <stop offset="60%" stop-color="#FEF9EC"/>
+      <stop offset="100%" stop-color="#F0C040" stop-opacity=".18"/>
+    </linearGradient>
+  </defs>
+  <rect width="430" height="900" fill="url(#bgG)"/>
+  <!-- ── VOLLEYBALL NET ── -->
+  <line x1="0" y1="148" x2="430" y2="148" stroke="#0D2347" stroke-width="2.5" opacity=".07"/>
+  <line x1="0" y1="162" x2="430" y2="162" stroke="#0D2347" stroke-width=".9" opacity=".05"/>
+  <line x1="0" y1="176" x2="430" y2="176" stroke="#0D2347" stroke-width=".9" opacity=".05"/>
+  <line x1="0" y1="190" x2="430" y2="190" stroke="#0D2347" stroke-width=".9" opacity=".05"/>
+  <!-- net vertical threads -->
+  <line x1="14" y1="133" x2="14" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="44" y1="133" x2="44" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="74" y1="133" x2="74" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="104" y1="133" x2="104" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="134" y1="133" x2="134" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="164" y1="133" x2="164" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="194" y1="133" x2="194" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="224" y1="133" x2="224" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="254" y1="133" x2="254" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="284" y1="133" x2="284" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="314" y1="133" x2="314" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="344" y1="133" x2="344" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="374" y1="133" x2="374" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <line x1="404" y1="133" x2="404" y2="205" stroke="#0D2347" stroke-width=".7" opacity=".04"/>
+  <!-- antennas -->
+  <line x1="5" y1="118" x2="5" y2="210" stroke="#C0392B" stroke-width="3.5" opacity=".1"/>
+  <line x1="425" y1="118" x2="425" y2="210" stroke="#C0392B" stroke-width="3.5" opacity=".1"/>
+  <!-- antenna stripes -->
+  <rect x="2" y="120" width="6" height="5" fill="#C0392B" opacity=".13"/>
+  <rect x="2" y="130" width="6" height="5" fill="#fff" opacity=".12"/>
+  <rect x="2" y="140" width="6" height="5" fill="#C0392B" opacity=".13"/>
+  <rect x="422" y="120" width="6" height="5" fill="#C0392B" opacity=".13"/>
+  <rect x="422" y="130" width="6" height="5" fill="#fff" opacity=".12"/>
+  <rect x="422" y="140" width="6" height="5" fill="#C0392B" opacity=".13"/>
+  <!-- COURT LINES -->
+  <rect x="28" y="220" width="374" height="195" rx="2" fill="none" stroke="#0D2347" stroke-width="1.8" opacity=".05"/>
+  <line x1="215" y1="220" x2="215" y2="415" stroke="#0D2347" stroke-width="1" opacity=".04"/>
+  <!-- ATTACK LINES (3m) -->
+  <line x1="28" y1="285" x2="402" y2="285" stroke="#0D2347" stroke-width=".9" stroke-dasharray="6,4" opacity=".04"/>
+  <line x1="28" y1="350" x2="402" y2="350" stroke="#0D2347" stroke-width=".9" stroke-dasharray="6,4" opacity=".04"/>
+  <!-- SAND dots -->
+  <circle cx="48" cy="460" r="2.5" fill="#C9A84C" opacity=".14"/>
+  <circle cx="92" cy="480" r="1.8" fill="#C9A84C" opacity=".11"/>
+  <circle cx="148" cy="452" r="2" fill="#C9A84C" opacity=".11"/>
+  <circle cx="200" cy="498" r="1.5" fill="#C9A84C" opacity=".09"/>
+  <circle cx="255" cy="468" r="2.2" fill="#C9A84C" opacity=".12"/>
+  <circle cx="318" cy="488" r="1.8" fill="#C9A84C" opacity=".11"/>
+  <circle cx="378" cy="455" r="2" fill="#C9A84C" opacity=".14"/>
+  <circle cx="410" cy="502" r="1.5" fill="#C9A84C" opacity=".09"/>
+  <circle cx="72" cy="560" r="1.5" fill="#C9A84C" opacity=".08"/>
+  <circle cx="160" cy="540" r="1.8" fill="#C9A84C" opacity=".1"/>
+  <circle cx="340" cy="555" r="2" fill="#C9A84C" opacity=".1"/>
+  <!-- BALL outlines (decorative) -->
+  <!-- ball 1 -->
+  <circle cx="42" cy="680" r="26" fill="none" stroke="#0D2347" stroke-width="1.4" opacity=".06"/>
+  <line x1="42" y1="654" x2="42" y2="706" stroke="#0D2347" stroke-width="1" opacity=".05"/>
+  <line x1="20" y1="663" x2="64" y2="697" stroke="#0D2347" stroke-width="1" opacity=".05"/>
+  <line x1="64" y1="663" x2="20" y2="697" stroke="#0D2347" stroke-width="1" opacity=".05"/>
+  <!-- ball 2 -->
+  <circle cx="398" cy="580" r="18" fill="none" stroke="#C0392B" stroke-width="1.2" opacity=".07"/>
+  <line x1="398" y1="562" x2="398" y2="598" stroke="#C0392B" stroke-width=".9" opacity=".06"/>
+  <line x1="382" y1="569" x2="414" y2="591" stroke="#C0392B" stroke-width=".9" opacity=".06"/>
+  <line x1="414" y1="569" x2="382" y2="591" stroke="#C0392B" stroke-width=".9" opacity=".06"/>
+  <!-- ball 3 -->
+  <circle cx="215" cy="780" r="20" fill="none" stroke="#D4A017" stroke-width="1.2" opacity=".08"/>
+  <line x1="215" y1="760" x2="215" y2="800" stroke="#D4A017" stroke-width=".9" opacity=".07"/>
+  <line x1="198" y1="767" x2="232" y2="793" stroke="#D4A017" stroke-width=".9" opacity=".07"/>
+  <line x1="232" y1="767" x2="198" y2="793" stroke="#D4A017" stroke-width=".9" opacity=".07"/>
+  <!-- STARS -->
+  <polygon points="385,728 388,738 398,738 390,744 393,754 385,748 377,754 380,744 372,738 382,738" fill="#D4A017" opacity=".1"/>
+  <polygon points="48,790 50,797 57,797 52,801 54,808 48,804 42,808 44,801 39,797 46,797" fill="#D4A017" opacity=".09"/>
+  <polygon points="400,820 402,826 408,826 404,830 406,836 400,832 394,836 396,830 392,826 398,826" fill="#D4A017" opacity=".07"/>
+  <!-- footprint silhouettes -->
+  <ellipse cx="90" cy="840" rx="7" ry="11" fill="#C9A84C" opacity=".07" transform="rotate(-15 90 840)"/>
+  <ellipse cx="108" cy="852" rx="7" ry="11" fill="#C9A84C" opacity=".06" transform="rotate(10 108 852)"/>
+  <ellipse cx="320" cy="860" rx="7" ry="11" fill="#C9A84C" opacity=".07" transform="rotate(-10 320 860)"/>
+  <ellipse cx="338" cy="848" rx="7" ry="11" fill="#C9A84C" opacity=".06" transform="rotate(15 338 848)"/>
+  <!-- WAVE lines at bottom -->
+  <path d="M0,870 Q54,860 108,870 Q162,880 216,870 Q270,860 324,870 Q378,880 430,870" fill="none" stroke="#0077B6" stroke-width="1.5" opacity=".07"/>
+  <path d="M0,885 Q54,875 108,885 Q162,895 216,885 Q270,875 324,885 Q378,895 430,885" fill="none" stroke="#0077B6" stroke-width="1" opacity=".05"/>
+</svg>
+
+<!-- ══════════════ AUTH ══════════════ -->
+<div id="auth-view" class="auth-wrap" style="display:none">
+  <!-- Auth BG art -->
+  <svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:1" viewBox="0 0 430 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- big net -->
+    <line x1="0" y1="230" x2="430" y2="230" stroke="#fff" stroke-width="2" opacity=".07"/>
+    <line x1="0" y1="248" x2="430" y2="248" stroke="#fff" stroke-width=".9" opacity=".05"/>
+    <line x1="0" y1="266" x2="430" y2="266" stroke="#fff" stroke-width=".9" opacity=".05"/>
+    <line x1="5" y1="210" x2="5" y2="280" stroke="#C0392B" stroke-width="4" opacity=".12"/>
+    <line x1="425" y1="210" x2="425" y2="280" stroke="#C0392B" stroke-width="4" opacity=".12"/>
+    <!-- net threads -->
+    <line x1="30" y1="215" x2="30" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="70" y1="215" x2="70" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="110" y1="215" x2="110" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="150" y1="215" x2="150" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="190" y1="215" x2="190" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="230" y1="215" x2="230" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="270" y1="215" x2="270" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="310" y1="215" x2="310" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="350" y1="215" x2="350" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <line x1="390" y1="215" x2="390" y2="275" stroke="#fff" stroke-width=".6" opacity=".05"/>
+    <!-- stars scattered across whole screen, including lower area -->
+    <polygon points="55,60 58,70 68,70 60,76 63,86 55,80 47,86 50,76 42,70 52,70" fill="#F0C040" opacity=".3"/>
+    <polygon points="375,80 377,87 384,87 379,91 381,98 375,94 369,98 371,91 366,87 373,87" fill="#F0C040" opacity=".3"/>
+    <polygon points="215,30 217,36 223,36 219,39 221,45 215,42 209,45 211,39 207,36 213,36" fill="#F0C040" opacity=".2"/>
+    <polygon points="40,360 43,369 52,369 45,374 48,383 40,378 32,383 35,374 28,369 37,369" fill="#F0C040" opacity=".22"/>
+    <polygon points="390,400 392,406 398,406 393,410 395,416 390,412 385,416 387,410 382,406 388,406" fill="#F0C040" opacity=".18"/>
+    <polygon points="120,470 123,479 132,479 125,484 128,493 120,488 112,493 115,484 108,479 117,479" fill="#F0C040" opacity=".24"/>
+    <polygon points="320,520 322,526 328,526 323,530 325,536 320,532 315,536 317,530 312,526 318,526" fill="#F0C040" opacity=".16"/>
+    <polygon points="200,580 203,589 212,589 205,594 208,603 200,598 192,603 195,594 188,589 197,589" fill="#F0C040" opacity=".22"/>
+    <polygon points="60,650 62,656 68,656 63,660 65,666 60,662 55,666 57,660 52,656 58,656" fill="#F0C040" opacity=".16"/>
+    <polygon points="360,690 363,699 372,699 365,704 368,713 360,708 352,713 355,704 348,699 357,699" fill="#F0C040" opacity=".22"/>
+    <polygon points="160,750 162,756 168,756 163,760 165,766 160,762 155,766 157,760 152,756 158,756" fill="#F0C040" opacity=".18"/>
+    <polygon points="290,800 293,809 302,809 295,814 298,823 290,818 282,823 285,814 278,809 287,809" fill="#F0C040" opacity=".2"/>
+    <polygon points="90,850 92,856 98,856 93,860 95,866 90,862 85,866 87,860 82,856 88,856" fill="#F0C040" opacity=".16"/>
+    <!-- seagulls -->
+    <path d="M80,105 Q88,98 96,105 Q104,98 112,105" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".25"/>
+    <path d="M290,85 Q297,79 304,85 Q311,79 318,85" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" opacity=".2"/>
+    <!-- sand wave -->
+    <path d="M0,390 Q60,375 120,390 Q180,405 240,390 Q300,375 360,390 Q400,400 430,388 L430,520 L0,520 Z" fill="#F2D488" opacity=".12"/>
+  </svg>
+
+  <div class="auth-top">
+    <div style="text-align:center;margin-bottom:6px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:46px;color:#fff;letter-spacing:3px;line-height:1;text-shadow:0 3px 0 rgba(0,0,0,.35)">
+        <span style="color:#F0C040">★</span> AMERICANKA <span style="color:#F0C040">★</span>
+      </div>
+      <div style="color:rgba(255,255,255,.6);font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:8px;font-weight:600">Коли не турнір?</div>
+    </div>
+    <div style="color:rgba(255,255,255,.55);font-size:10px;letter-spacing:1.5px;text-align:center;margin-top:14px">
+      ★ ПЛЯЖ 13 · СТАНЦІЯ ФОНТАНА · ОДЕСА ★
+    </div>
+  </div>
+
+  <div class="auth-bot">
+    <div class="atabs">
+      <button class="atab on" id="tab-login" onclick="switchAuth('login')">Увійти</button>
+      <button class="atab" id="tab-reg" onclick="switchAuth('reg')">Реєстрація</button>
+    </div>
+
+    <div id="form-login">
+      <label class="lbl">Логін</label>
+      <input class="inp" id="login-un" placeholder="Login" autocomplete="username"/>
+      <label class="lbl" style="margin-top:2px">Пароль</label>
+      <div class="pfield">
+        <input class="inp" type="password" id="login-pw" placeholder="Password" autocomplete="current-password"/>
+        <button class="peye" onclick="tgPass('login-pw','eye1')" type="button">
+          <svg id="eye1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <div id="login-err" style="display:none" class="msgerr"></div>
+      <button class="btnp" onclick="doLogin()" style="margin-top:6px">Увійти →</button>
+    </div>
+
+    <div id="form-reg" style="display:none">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
+        <div style="position:relative">
+          <div class="phup" id="phupWrap" onclick="document.getElementById('reg-ph').click()">
+            <span style="font-size:22px" id="rphicon">📷</span>
+            <img id="rphprev" style="display:none;position:absolute;inset:0;border-radius:50%;width:100%;height:100%;object-fit:cover"/>
+          </div>
+          <input type="file" id="reg-ph" accept="image/*" style="display:none" onchange="prevPhoto(this,'rphprev','rphicon')"/>
+        </div>
+        <div><div style="font-size:13px;font-weight:700">Фото профілю *</div><div style="font-size:11px;color:var(--text2)">Обов'язково</div></div>
+      </div>
+      <label class="lbl">Ім'я та прізвище *</label><input class="inp" id="rn" placeholder="Ім'я"/>
+      <label class="lbl">Логін *</label><input class="inp" id="ru" placeholder="Login"/>
+      <label class="lbl">Телефон *</label><input class="inp" id="rp" type="tel" value="+380 " placeholder="+380 XX XXX XX XX" oninput="guardPhonePrefix(this)" onfocus="if(this.selectionStart<5)this.setSelectionRange(this.value.length,this.value.length)"/>
+      <label class="lbl">Пароль *</label>
+      <div class="pfield"><input class="inp" type="password" id="rpw" placeholder="мін. 4 символи"/><button class="peye" onclick="tgPass('rpw','eye2')" type="button"><svg id="eye2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+      <label class="lbl">Email *</label><input class="inp" id="re" type="email" placeholder="email@example.com"/>
+      <label class="lbl">Стать *</label>
+      <div class="grow"><button class="gbtn on" id="gb-m" onclick="pickG('M')">Чоловіча</button><button class="gbtn" id="gb-f" onclick="pickG('F')">Жіноча</button></div>
+      <label class="lbl">Рівень *</label>
+      <div class="chips">
+        <button class="chip" onclick="pickRC(this,'D')">D</button>
+        <button class="chip on" onclick="pickRC(this,'C')">C</button>
+        <button class="chip" onclick="pickRC(this,'B')">B</button>
+        <button class="chip" onclick="pickRC(this,'A')">A</button>
+      </div>
+      <div id="reg-err" style="display:none" class="msgerr"></div>
+      <div class="msgwarn" style="margin-bottom:8px">Після реєстрації адмін призначить рейтинг. Участь у турнірах — після підтвердження.</div>
+      <button class="btnp" onclick="startPhoneVerify()">Зареєструватися →</button>
+    </div>
+
+    <div id="form-verify" style="display:none">
+      <button onclick="backToReg()" style="background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px;margin-bottom:14px;font-family:'Inter',sans-serif">← Назад</button>
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-size:40px;margin-bottom:10px">📱</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--navy);letter-spacing:1px">ПІДТВЕРДЖЕННЯ НОМЕРА</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:6px">Ми надіслали SMS-код на номер<br/><b id="verify-phone-display" style="color:var(--navy)">—</b></div>
+      </div>
+      <label class="lbl">Код підтвердження *</label>
+      <input class="inp" id="verify-code" type="text" inputmode="numeric" maxlength="4" placeholder="0000" style="text-align:center;font-size:24px;letter-spacing:8px;font-weight:700"/>
+      <div id="verify-err" style="display:none" class="msgerr"></div>
+      <div class="msgok" id="verify-hint" style="display:none"></div>
+      <button class="btnp" onclick="confirmPhoneCode()">Підтвердити →</button>
+      <button class="btno" onclick="resendCode()">Надіслати код повторно</button>
+    </div>
+
+    <div id="form-verify-email" style="display:none">
+      <div style="text-align:center;margin-bottom:18px">
+        <div style="font-size:40px;margin-bottom:10px">📧</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--navy);letter-spacing:1px">ПІДТВЕРДЖЕННЯ EMAIL</div>
+        <div style="font-size:13px;color:var(--text2);margin-top:6px">Ми надіслали код на<br/><b id="verify-email-display" style="color:var(--navy)">—</b></div>
+      </div>
+      <label class="lbl">Код підтвердження *</label>
+      <input class="inp" id="verify-email-code" type="text" inputmode="numeric" maxlength="4" placeholder="0000" style="text-align:center;font-size:24px;letter-spacing:8px;font-weight:700"/>
+      <div id="verify-email-err" style="display:none" class="msgerr"></div>
+      <div class="msgok" id="verify-email-hint" style="display:none"></div>
+      <button class="btnp" onclick="confirmEmailCode()">Підтвердити →</button>
+      <button class="btno" onclick="resendEmailCode()">Надіслати код повторно</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<div id="main-view" style="display:none;flex-direction:column;flex:1">
+  <div class="topbar">
+    <div class="logo-row">
+      <div style="width:30px;height:30px;border-radius:50%;background:var(--sand);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+      </div>
+      <div>
+        <div class="logo-title"><span class="logo-star">★</span>AMERICANKA<span class="logo-star">★</span></div>
+        <div class="logo-sub">Пляж 13 · Станція Фонтана</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div id="abadge" style="display:none;font-size:9px;background:var(--sand2);color:var(--navy);padding:2px 8px;border-radius:20px;font-weight:700;letter-spacing:.5px">ADMIN</div>
+      <div style="position:relative">
+        <div class="top-av" id="top-av" onclick="goTo('s-profile')">??</div>
+        <div class="ndot" id="ndot" style="display:none"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- HOME -->
+    <div id="s-home" class="screen active">
+      <div class="card-navy card" style="margin-bottom:14px;position:relative;overflow:hidden;padding:16px 18px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--sand);letter-spacing:2px">★ AMERICANKA ★</div>
+        <div style="color:rgba(255,255,255,.5);font-size:9px;letter-spacing:1px;margin-top:1px">ПЛЯЖ 13 · СТАНЦІЯ ФОНТАНА · ОДЕСА</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.12);font-size:12px;color:rgba(255,255,255,.8)">
+          Американка 2x2 · 8 гравців · 7 раундів · Сума рахунку <b style="color:var(--sand)">31</b>
+        </div>
+      </div>
+      <div id="hpend" style="display:none" class="msgwarn">Акаунт очікує підтвердження рейтингу адміном.</div>
+      <div class="slbl">Моя статистика</div>
+      <div class="mgrid">
+        <div class="met"><div class="v" id="h-elo">—</div><div class="l">Рейтинг Ело</div></div>
+        <div class="met"><div class="v" id="h-cat">—</div><div class="l">Категорія</div></div>
+        <div class="met"><div class="v" id="h-tourn">0</div><div class="l">Турнірів</div></div>
+        <div class="met"><div class="v" id="h-wins">0%</div><div class="l">Перемог</div></div>
+      </div>
+      <div class="slbl" id="htoplbl">Топ гравців</div>
+      <div id="htop"></div>
+    </div>
+
+    <!-- TOURNAMENTS -->
+    <div id="s-tournaments" class="screen">
+      <div class="tgl">
+        <button class="tbtn on" id="tt-sched" onclick="tTab('sched')">Розклад</button>
+        <button class="tbtn" id="tt-live" onclick="tTab('live')">Активні</button>
+        <button class="tbtn" id="tt-done" onclick="tTab('done')">Завершені</button>
+      </div>
+      <div id="t-sched"><div class="slbl">Заплановані</div><div id="sched-list"></div><div id="cbw" style="display:none"><button class="btnp" onclick="goTo('s-create')">+ Створити турнір</button></div></div>
+      <div id="t-live" style="display:none"><div class="slbl">Активний турнір</div><div id="live-wrap"></div></div>
+      <div id="t-done" style="display:none"><div class="slbl">Завершені</div><div id="done-list"></div></div>
+    </div>
+
+    <!-- CREATE -->
+    <div id="s-create" class="screen">
+      <button class="btnback" onclick="goTo('s-tournaments')" style="background:none;border:none;cursor:pointer;color:var(--text2);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:14px;font-family:'Inter',sans-serif">← Назад</button>
+      <div style="font-size:16px;font-weight:700;margin-bottom:16px">Новий турнір</div>
+      <label class="lbl">Назва</label><input class="inp" id="t-name" placeholder="Американка B #1"/>
+      <label class="lbl">Дата та час початку</label><input class="inp" id="t-date" type="datetime-local"/>
+      <label class="lbl">Місце проведення</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px">
+        <div class="court-opt on" id="loc-beach" onclick="setLoc('beach')">
+          <div class="court-chk on" id="lchk-beach"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div style="font-size:12px;font-weight:700">Beach 13</div><div style="font-size:10px;color:var(--text2)">Станція Фонтана</div></div>
+        </div>
+        <div class="court-opt" id="loc-dyn" onclick="setLoc('dyn')">
+          <div class="court-chk" id="lchk-dyn"></div>
+          <div><div style="font-size:12px;font-weight:700">Dynamo SC</div><div style="font-size:10px;color:var(--text2)">Sport Complex</div></div>
+        </div>
+      </div>
+      <label class="lbl">Корти (оберіть 1 або 2)</label>
+      <div id="courts-list">
+        <div class="court-opt on" id="co-1" onclick="togCourt(1)">
+          <div class="court-chk on" id="cchk-1"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div><div style="font-size:13px;font-weight:700">Корт 1</div><div style="font-size:10px;color:var(--text2)">Основний</div></div>
+        </div>
+        <div class="court-opt" id="co-2" onclick="togCourt(2)">
+          <div class="court-chk" id="cchk-2"></div>
+          <div><div style="font-size:13px;font-weight:700">Корт 2</div><div style="font-size:10px;color:var(--text2)">Додатковий</div></div>
+        </div>
+      </div>
+      <div id="court-note" style="font-size:11px;color:var(--text2);margin-top:6px;margin-bottom:12px">1 корт: ігри проходять послідовно. 2 корти: ігри паралельно.</div>
+      <label class="lbl">Категорія</label>
+      <div class="chips"><button class="chip" onclick="selTC(this,'D')">D</button><button class="chip on" onclick="selTC(this,'B')">B</button><button class="chip" onclick="selTC(this,'A')">A</button><button class="chip" onclick="selTC(this,'Open')">Open</button></div>
+      <label class="lbl">Стать</label>
+      <div class="grow" style="margin-bottom:12px"><button class="gbtn on" id="tgm" onclick="selTG(this,'M')">Чоловіки</button><button class="gbtn" id="tgf" onclick="selTG(this,'F')">Жінки</button></div>
+      <label class="lbl">Гравці (<span id="tcc">0</span>/8 — пари: <span id="tpairs">0</span>/4)</label>
+      <div id="tc-players"></div>
+      <button class="btnp" id="tc-start" disabled onclick="startT()">Розпочати →</button>
+    </div>
+
+    <!-- BRACKET -->
+    <div id="s-bracket" class="screen">
+      <button onclick="goTo('s-tournaments')" style="background:none;border:none;cursor:pointer;color:var(--text2);font-size:13px;font-weight:700;display:flex;align-items:center;gap:5px;margin-bottom:12px;font-family:'Inter',sans-serif">← <span id="br-title">Турнір</span></button>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <div style="font-size:11px;color:var(--text2)">Раунд <span id="br-r">1</span>/7 · <span id="br-d">0</span>/14 ігор</div>
+        <span class="badge b-live" id="br-badge">● Йде</span>
+      </div>
+      <div class="pbar" style="margin-bottom:12px"><div class="pfill" id="br-prog" style="width:0%"></div></div>
+      <div class="tgl">
+        <button class="tbtn on" id="tb-table" onclick="bTab('table')">Таблиця</button>
+        <button class="tbtn" id="tb-matches" onclick="bTab('matches')">Ігри</button>
+        <button class="tbtn" id="tb-chat" onclick="bTab('chat')">Чат</button>
+      </div>
+      <div id="br-table"></div>
+      <div id="br-matches" style="display:none"></div>
+      <div id="br-chat" style="display:none">
+        <div class="chatwrap" id="chat-msgs"></div>
+        <div class="chatbar">
+          <input class="chatinp" id="cinp" placeholder="Написати повідомлення..." inputmode="text" enterkeyhint="send" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"/>
+          <button class="chatsend" onclick="sendChat()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+        </div>
+      </div>
+      <div id="br-finish" style="display:none;background:var(--navy);border-radius:14px;padding:18px;text-align:center;margin-top:12px">
+        <div style="font-size:26px;margin-bottom:6px">🏆</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--sand);letter-spacing:1px">★ ТУРНІР ЗАВЕРШЕНО ★</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px" id="br-winner"></div>
+        <button class="btnp" style="margin-top:12px;background:var(--sand2);color:var(--navy)" onclick="finishT()">Зберегти результати</button>
+      </div>
+    </div>
+
+    <!-- RATING -->
+    <div id="s-rating" class="screen">
+      <div class="grow" style="margin-bottom:10px">
+        <button class="gbtn on" id="rg-M" onclick="rG('M')">Чоловіки</button>
+        <button class="gbtn" id="rg-F" onclick="rG('F')">Жінки</button>
+      </div>
+      <div class="chips">
+        <button class="chip on" onclick="rC(this,'all')">Всі</button>
+        <button class="chip" onclick="rC(this,'A')">A</button>
+        <button class="chip" onclick="rC(this,'B')">B</button>
+        <button class="chip" onclick="rC(this,'C')">C</button>
+        <button class="chip" onclick="rC(this,'D')">D</button>
+      </div>
+      <div id="rlist"></div>
+      <div class="slbl">Шкала рівнів</div>
+      <div class="card"><div id="escale"></div><div style="font-size:10px;color:var(--text2);margin-top:7px">K=32 · сума рахунку 31 · оновлення після кожної гри</div></div>
+    </div>
+
+    <!-- PROFILE -->
+    <div id="s-profile" class="screen">
+      <div style="display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:16px">
+        <div style="position:relative">
+          <div class="av" id="pav" style="width:56px;height:56px;background:var(--cream2);color:var(--navy);font-size:17px;border:2px solid var(--border)">??</div>
+          <div style="position:absolute;bottom:0;right:0;width:22px;height:22px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;cursor:pointer;border:2px solid var(--card)" onclick="document.getElementById('pphinp').click()">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <input type="file" id="pphinp" accept="image/*" style="display:none" onchange="changePh(this)"/>
+        </div>
+        <div style="flex:1">
+          <div style="font-size:17px;font-weight:700;color:var(--text)" id="pname">—</div>
+          <div style="font-size:12px;color:var(--navy);margin-top:2px;font-weight:600" id="pcat">—</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px" id="pphone">—</div>
+        </div>
+        <button onclick="doLogout()" style="background:none;border:none;cursor:pointer;color:var(--text2);font-size:12px;font-family:'Inter',sans-serif;font-weight:600">Вийти</button>
+      </div>
+      <!-- Admin profile shows stats summary -->
+      <div id="admin-prof-stats" style="display:none">
+        <div class="slbl">Статистика по гравцях</div>
+        <div id="admin-stats-content"></div>
+      </div>
+      <!-- Player profile -->
+      <div id="player-prof" style="display:none">
+        <div class="mgrid" style="margin-bottom:14px">
+          <div class="met"><div class="v" id="p-elo">—</div><div class="l">Рейтинг Ело</div></div>
+          <div class="met"><div class="v" id="p-t">0</div><div class="l">Турнірів</div></div>
+          <div class="met"><div class="v" id="p-w">0</div><div class="l">Перемог</div></div>
+          <div class="met"><div class="v" id="p-g">—</div><div class="l">Ело за рік</div></div>
+        </div>
+        <div class="slbl">Калькулятор Ело</div>
+        <div class="card" style="margin-bottom:14px">
+          <div style="font-size:12px;color:var(--text2);margin-bottom:5px">Ело суперника: <b id="oval" style="color:var(--text)">1200</b></div>
+          <input type="range" min="800" max="2000" step="10" value="1200" id="osl" oninput="calcE()" style="width:100%;accent-color:var(--navy)"/>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px">
+            <div style="padding:9px;background:#EEF3FF;border-radius:9px;text-align:center;border:1px solid #B8C8F0"><div style="font-size:14px;font-weight:700;color:var(--navy)" id="echance">—</div><div style="font-size:10px;color:var(--navy2)">шанс</div></div>
+            <div style="padding:9px;background:#ECFDF5;border-radius:9px;text-align:center;border:1px solid #A7F3D0"><div style="font-size:14px;font-weight:700;color:#065F46" id="ewin">—</div><div style="font-size:10px;color:#065F46">перемога</div></div>
+            <div style="padding:9px;background:#FEF2F2;border-radius:9px;text-align:center;border:1px solid #FECACA"><div style="font-size:14px;font-weight:700;color:#9B1C1C" id="eloss">—</div><div style="font-size:10px;color:#9B1C1C">поразка</div></div>
+          </div>
+        </div>
+        <div class="slbl">Партнери</div>
+        <div class="card" style="margin-bottom:14px" id="pstats"><div style="font-size:13px;color:var(--text2)">Дані після турнірів</div></div>
+        <div class="slbl">Історія</div>
+        <div id="phist"></div>
+      </div>
+    </div>
+
+    <!-- ADMIN -->
+    <div id="s-admin" class="screen">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--sand3);border:1px solid var(--sand2);display:flex;align-items:center;justify-content:center;font-size:16px">🛡</div>
+        <div style="font-size:16px;font-weight:700">Адмін-панель</div>
+      </div>
+      <div class="slbl">Нові реєстрації <span id="pbadge" style="background:#E74C3C;color:#fff;border-radius:20px;padding:1px 8px;font-size:10px;font-weight:700;margin-left:2px"></span></div>
+      <div id="apend"><div style="font-size:13px;color:var(--text2)">Нових заявок немає</div></div>
+      <div class="slbl">Гравці · Чоловіки</div>
+      <div id="apm"></div>
+      <div class="slbl">Гравці · Жінки</div>
+      <div id="apf"></div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bnav">
+    <button class="nbtn on" id="nav-home" onclick="goTo('s-home')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      ГОЛОВНА
+    </button>
+    <button class="nbtn" id="nav-tournaments" onclick="goTo('s-tournaments')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M5 4H3v2a4 4 0 0 0 4 4M19 4h2v2a4 4 0 0 1-4 4"/></svg>
+      ТУРНІРИ
+    </button>
+    <button class="nbtn" id="nav-rating" onclick="goTo('s-rating')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      РЕЙТИНГ
+    </button>
+    <button class="nbtn" id="nav-profile" onclick="goTo('s-profile')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      ПРОФІЛЬ
+    </button>
+    <button class="nbtn" id="nav-admin" style="display:none" onclick="goTo('s-admin')">
+      <div style="position:relative;display:inline-block">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="ndot" id="adot" style="display:none;top:-3px;right:-3px"></div>
+      </div>
+      АДМІН
+    </button>
+  </div>
+</div>
+
+<!-- SCORE MODAL — centered -->
+<div id="smod" class="smod">
+  <div class="smod-box">
+    <div style="text-align:center;margin-bottom:4px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--navy);letter-spacing:1px">РАХУНОК ГРИ</div>
+      <div style="font-size:11px;color:var(--text2)">Сума має дорівнювати 31</div>
+    </div>
+    <!-- Pair A -->
+    <div style="text-align:center;margin-bottom:4px">
+      <div style="font-size:11px;font-weight:700;color:var(--navy)" id="mteamA">—</div>
+    </div>
+    <div class="sinputs">
+      <div style="text-align:center">
+        <input type="number" class="sinp" id="s-a" min="0" max="31" placeholder="0" oninput="autoFillScore('a')"/>
+      </div>
+      <div style="font-size:22px;color:var(--text2);font-weight:700;text-align:center">:</div>
+      <div style="text-align:center">
+        <input type="number" class="sinp" id="s-b" min="0" max="31" placeholder="0" oninput="autoFillScore('b')"/>
+      </div>
+    </div>
+    <div style="text-align:center;margin-bottom:8px">
+      <div style="font-size:11px;font-weight:700;color:var(--navy)" id="mteamB">—</div>
+    </div>
+    <div id="serr" style="display:none;font-size:11px;color:#9B1C1C;margin-bottom:8px;padding:7px 10px;background:#FEF2F2;border-radius:7px;text-align:center">Сума рахунку має бути 31</div>
+    <button class="btnp" style="margin-top:0" onclick="saveScore()">Зберегти рахунок</button>
+    <button class="btno" onclick="closeMod()">Скасувати</button>
+  </div>
+</div>
+
+</div>
+<script>
+const K=32,WIN=31;
+function expS(a,b){return 1/(1+Math.pow(10,(b-a)/400));}
+function eG(a,b,w){return Math.round(K*(w-expS(a,b)));}
+function catE(e){
+  if(e>=1800)return{id:'Open',label:'Open'};if(e>=1500)return{id:'A',label:'Кат. A'};
+  if(e>=1200)return{id:'B',label:'Кат. B'};if(e>=1000)return{id:'C',label:'Кат. C'};
+  return{id:'D',label:'Кат. D'};
+}
+const CATS=[{id:'D',sub:'Новачки',range:[800,1000],color:'#5DCAA5'},{id:'C',sub:'Любителі',range:[1000,1200],color:'#1D9E75'},{id:'B',sub:'Досвідчені',range:[1200,1500],color:'#0F6E56'},{id:'A',sub:'Просунуті',range:[1500,1800],color:'#085041'},{id:'Open',sub:'Про',range:[1800,2200],color:'#04342C'}];
+const ES={D:900,C:1050,B:1300,A:1600,Open:1900};
+const ABG=['#EAF3DE','#E6F1FB','#FAEEDA','#FBEAF0','#EEEDFE','#E1F5EE','#FAECE7','#F1EFE8'];
+const ACL=['#27500A','#0C447C','#633806','#72243E','#3C3489','#085041','#712B13','#444441'];
+
+// 2x2 Americano schedule: 7 rounds, each round 2 matches of 2v2
+// 8 players indexed 0-7, pairs rotate each round
+// Format: each round = [[p0,p1 vs p2,p3],[p4,p5 vs p6,p7]] shuffled per round
+const SCH=[
+  [[[0,1],[2,3]],[[4,5],[6,7]]],
+  [[[0,2],[4,6]],[[1,3],[5,7]]],
+  [[[0,3],[5,6]],[[1,2],[4,7]]],
+  [[[0,4],[1,6]],[[2,5],[3,7]]],
+  [[[0,5],[2,7]],[[1,4],[3,6]]],
+  [[[0,6],[3,5]],[[1,7],[2,4]]],
+  [[[0,7],[1,5]],[[2,6],[3,4]]],
+];
+
+let cu=null,players={},tournaments=[],pendingU=[],activeT=null,activeMid=null;
+let tcCat='B',tcG='M',tcIds=[],selCourts=[1],selLocVal='beach';
+let rGv='M',rCv='all',regCat='C',regG='M',pendCE={};
+
+function save(){
+  try{
+    localStorage.setItem('ka4-p',JSON.stringify(players));
+    localStorage.setItem('ka4-t',JSON.stringify(tournaments));
+    localStorage.setItem('ka4-u',JSON.stringify(pendingU));
+    if(activeT)localStorage.setItem('ka4-a',JSON.stringify(activeT));
+    else localStorage.removeItem('ka4-a');
+  }catch(e){}
+}
+function load(){
+  try{
+    const p=localStorage.getItem('ka4-p');if(p)players=JSON.parse(p);
+    const t=localStorage.getItem('ka4-t');if(t)tournaments=JSON.parse(t);
+    const u=localStorage.getItem('ka4-u');if(u)pendingU=JSON.parse(u);
+    const a=localStorage.getItem('ka4-a');if(a)activeT=JSON.parse(a);
+  }catch(e){}
+  if(!Object.keys(players).length)seed();
+  if(!localStorage.getItem('ka4-cleaned-v1')){
+    Object.keys(players).filter(id=>id.startsWith('u_')).forEach(id=>{delete players[id];});
+    pendingU=pendingU.filter(p=>!p.id.startsWith('u_'));
+    localStorage.setItem('ka4-cleaned-v1','1');
+    save();
+  }
+}
+function seed(){
+  players['admin']={id:'admin',name:'Адміністратор',login:'admin',pass:'beach13admin',phone:'',ini:'АД',isAdmin:true,gender:'M',elo:null,cat:'',bg:'#FAEEDA',cl:'#633806',tc:0,wc:0,eh:[],ph:null};
+  const ms=[
+    {id:'m1',name:'Олег Коваль',login:'oleg_k',ini:'ОК',gender:'M',elo:1350,bg:'#EAF3DE',cl:'#27500A'},
+    {id:'m2',name:'Дима Петренко',login:'dima_p',ini:'ДП',gender:'M',elo:1310,bg:'#FAEEDA',cl:'#633806'},
+    {id:'m3',name:'Макс Бондар',login:'max_b',ini:'МБ',gender:'M',elo:1290,bg:'#E6F1FB',cl:'#0C447C'},
+    {id:'m4',name:'Ваня Захаров',login:'vanya_z',ini:'ВЗ',gender:'M',elo:1260,bg:'#FAECE7',cl:'#712B13'},
+    {id:'m5',name:'Антон Мельник',login:'anton_m',ini:'АМ',gender:'M',elo:1240,bg:'#E1F5EE',cl:'#085041',isMe:true},
+    {id:'m6',name:'Саша Лисенко',login:'sasha_l',ini:'СЛ',gender:'M',elo:1220,bg:'#EEEDFE',cl:'#3C3489'},
+    {id:'m7',name:'Рома Гриценко',login:'roma_g',ini:'РГ',gender:'M',elo:1210,bg:'#FBEAF0',cl:'#72243E'},
+    {id:'m8',name:'Микита Бєлов',login:'mykyta_b',ini:'МБ',gender:'M',elo:1205,bg:'#F1EFE8',cl:'#444441'},
+  ];
+  const fs=[
+    {id:'f1',name:'Настя Семенова',login:'nastya_s',ini:'НС',gender:'F',elo:1430,bg:'#E6F1FB',cl:'#0C447C'},
+    {id:'f2',name:'Карина Васильєва',login:'karina_v',ini:'КВ',gender:'F',elo:1310,bg:'#FBEAF0',cl:'#72243E'},
+    {id:'f3',name:'Юля Романова',login:'yulya_r',ini:'ЮР',gender:'F',elo:1155,bg:'#EEEDFE',cl:'#3C3489'},
+    {id:'f4',name:'Соня Лисова',login:'sonya_l',ini:'СЛ',gender:'F',elo:990,bg:'#F1EFE8',cl:'#444441'},
+  ];
+  [...ms,...fs].forEach(p=>{players[p.id]={...p,pass:'1234',cat:catE(p.elo).id,tc:0,wc:0,eh:[],ph:null,pending:false};});
+  // Create demo tournament - scheduled
+  const tp=ms.map(p=>players[p.id]);
+  const dt=new Date();dt.setDate(dt.getDate()+3);dt.setHours(11,0,0,0);
+  tournaments.push({
+    id:'t_demo',name:'★ Американка 2x2 · Кат. B',cat:'B',gender:'M',
+    date:dt.getTime(),status:'scheduled',
+    location:'Beach 13 — Станція Фонтана',courts:[1],
+    startTime:'11:00',
+    players:tp.map(p=>({id:p.id,name:p.name,ini:p.ini,elo:p.elo,bg:p.bg,cl:p.cl,ph:null})),
+    rounds:SCH.map((r,ri)=>({round:ri+1,matches:r.map(([ta,tb],mi)=>({
+      id:`r${ri+1}m${mi+1}`,
+      teamA:[tp[ta[0]].id,tp[ta[1]].id],
+      teamB:[tp[tb[0]].id,tp[tb[1]].id],
+      sA:null,sB:null,played:false,
+      court:1
+    }))})),
+    chat:[],winner:null
+  });
+  save();
+}
+
+// PHOTO HELPERS
+function prevPhoto(inp,imgId,icId){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();r.onload=e=>{
+    const img=document.getElementById(imgId);if(img){img.src=e.target.result;img.style.display='block';}
+    const ic=document.getElementById(icId);if(ic)ic.style.display='none';
+  };r.readAsDataURL(f);
+}
+function changePh(inp){
+  const f=inp.files[0];if(!f||!cu)return;
+  const r=new FileReader();r.onload=e=>{
+    cu.ph=e.target.result;players[cu.id].ph=cu.ph;save();renderPAv();
+    const t=document.getElementById('top-av');if(t)t.innerHTML=cu.ph?`<img src="${cu.ph}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`:cu.ini;
+  };r.readAsDataURL(f);
+}
+function renderPAv(){
+  const av=document.getElementById('pav');if(!av||!cu)return;
+  if(cu.ph){av.innerHTML=`<img src="${cu.ph}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`;av.style.fontSize='0';}
+  else{av.innerHTML=cu.ini||'??';av.style.background=cu.bg||'#eee';av.style.color=cu.cl||'#333';}
+}
+function avH(p,sz){
+  sz=sz||34;
+  if(!p)return`<div class="av" style="width:${sz}px;height:${sz}px;background:#eee;color:#888;font-size:${Math.round(sz*.3)}px">?</div>`;
+  if(p.ph)return`<div class="av" style="width:${sz}px;height:${sz}px;border:1.5px solid var(--border)"><img src="${p.ph}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/></div>`;
+  const avBg=p.bg||'#eee';const avCl=p.cl||'#333';const avFs=Math.round(sz*.32);const avIn=p.ini||'?';
+  return '<div class="av" style="width:'+sz+'px;height:'+sz+'px;background:'+avBg+';color:'+avCl+';font-size:'+avFs+'px">'+avIn+'</div>';
+}
+function tgPass(id,eid){
+  const inp=document.getElementById(id);const eye=document.getElementById(eid);if(!inp)return;
+  const show=inp.type==='password';inp.type=show?'text':'password';
+  if(eye)eye.innerHTML=show?'<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>':'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+}
+function switchAuth(t){
+  document.getElementById('form-login').style.display=t==='login'?'block':'none';
+  document.getElementById('form-reg').style.display=t==='reg'?'block':'none';
+  document.getElementById('form-verify').style.display='none';
+  document.getElementById('form-verify-email').style.display='none';
+  document.getElementById('tab-login').className='atab'+(t==='login'?' on':'');
+  document.getElementById('tab-reg').className='atab'+(t==='reg'?' on':'');
+}
+function pickG(g){regG=g;document.getElementById('gb-m').className='gbtn'+(g==='M'?' on':'');document.getElementById('gb-f').className='gbtn'+(g==='F'?' on':'');}
+function guardPhonePrefix(inp){
+  if(!inp.value.startsWith('+380')){
+    inp.value='+380 '+inp.value.replace(/^\+?3?8?0?\s?/,'');
+  }
+}
+function pickRC(el,c){el.closest('.chips').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');regCat=c;}
+const VERIFY_API_BASE='https://americanka-beach-volley-production.up.railway.app';
+let pendingRegData=null;
+function normPhone(phone){return phone.replace(/\D/g,'');}
+function toE164(phone){const d=normPhone(phone);return '+'+d;}
+
+async function apiCall(path,body){
+  try{
+    const res=await fetch(VERIFY_API_BASE+path,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    const data=await res.json().catch(()=>({success:false,error:'Помилка сервера'}));
+    return data;
+  }catch(e){
+    return {success:false,error:"Не вдалося з'єднатися з сервером. Перевірте інтернет."};
+  }
+}
+
+function setBtnLoading(btn,loading,labelDefault){
+  if(!btn)return;
+  btn.disabled=loading;
+  btn.textContent=loading?'Надсилання...':labelDefault;
+}
+
+async function startPhoneVerify(){
+  const name=document.getElementById('rn').value.trim();
+  const login=document.getElementById('ru').value.trim().toLowerCase();
+  const phone=document.getElementById('rp').value.trim();
+  const pass=document.getElementById('rpw').value;
+  const email=document.getElementById('re').value.trim().toLowerCase();
+  const err=document.getElementById('reg-err');
+  const prev=document.getElementById('rphprev');
+  const hasPhoto=prev&&prev.src&&prev.src.startsWith('data:');
+  const phupWrap=document.getElementById('phupWrap');
+  if(!hasPhoto){
+    err.textContent="Будь ласка, додайте фото профілю — це обов'язкове поле";err.style.display='block';
+    if(phupWrap)phupWrap.style.borderColor='#E74C3C';
+    return;
+  }
+  if(phupWrap)phupWrap.style.borderColor='rgba(255,255,255,.3)';
+  if(!name){err.textContent="Вкажіть ім'я та прізвище";err.style.display='block';return;}
+  if(!login){err.textContent='Вкажіть логін';err.style.display='block';return;}
+  if(!phone||normPhone(phone).length<12){err.textContent='Вкажіть повний номер телефону';err.style.display='block';return;}
+  if(pass.length<4){err.textContent='Пароль має містити мінімум 4 символи';err.style.display='block';return;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){err.textContent='Вкажіть коректний email';err.style.display='block';return;}
+  const allUsers=[...Object.values(players),...pendingU];
+  if(allUsers.find(p=>p.login===login)){err.textContent='Цей логін вже зайнятий';err.style.display='block';return;}
+  if(allUsers.find(p=>p.phone&&normPhone(p.phone)===normPhone(phone))){err.textContent='Цей номер телефону вже зареєстрований';err.style.display='block';return;}
+  if(allUsers.find(p=>p.email&&p.email.toLowerCase()===email)){err.textContent='Цей email вже зареєстрований';err.style.display='block';return;}
+  err.style.display='none';
+  pendingRegData={name,login,phone,pass,email,ph:prev.src};
+
+  const btn=event&&event.target?event.target:null;
+  setBtnLoading(btn,true,'Зареєструватися →');
+  const result=await apiCall('/api/send-phone-code',{phone:toE164(phone)});
+  setBtnLoading(btn,false,'Зареєструватися →');
+
+  if(!result.success){
+    err.textContent=result.error||'Не вдалося надіслати SMS';err.style.display='block';
+    return;
+  }
+  document.getElementById('form-reg').style.display='none';
+  document.getElementById('form-verify').style.display='block';
+  document.getElementById('verify-phone-display').textContent=phone;
+  document.getElementById('verify-code').value='';
+  document.getElementById('verify-err').style.display='none';
+  const hint=document.getElementById('verify-hint');
+  hint.style.display='block';hint.textContent='Код надіслано на ваш телефон!';
+}
+
+async function resendCode(){
+  const err=document.getElementById('verify-err');if(err)err.style.display='none';
+  const hint=document.getElementById('verify-hint');
+  if(!pendingRegData)return;
+  const btn=event&&event.target?event.target:null;
+  setBtnLoading(btn,true,'Надіслати код повторно');
+  const result=await apiCall('/api/send-phone-code',{phone:toE164(pendingRegData.phone)});
+  setBtnLoading(btn,false,'Надіслати код повторно');
+  if(!result.success){
+    if(err){err.textContent=result.error||'Не вдалося надіслати SMS';err.style.display='block';}
+    return;
+  }
+  if(hint){hint.style.display='block';hint.textContent='Новий код надіслано!';}
+}
+
+function backToReg(){
+  document.getElementById('form-verify').style.display='none';
+  document.getElementById('form-reg').style.display='block';
+}
+
+async function confirmPhoneCode(){
+  const entered=document.getElementById('verify-code').value.trim();
+  const err=document.getElementById('verify-err');
+  if(!entered){err.textContent='Введіть код з SMS';err.style.display='block';return;}
+  const btn=event&&event.target?event.target:null;
+  setBtnLoading(btn,true,'Підтвердити →');
+  const result=await apiCall('/api/verify-phone-code',{phone:toE164(pendingRegData.phone),code:entered});
+  setBtnLoading(btn,false,'Підтвердити →');
+  if(!result.success){
+    err.textContent=result.error||'Невірний код. Перевірте SMS і спробуйте ще раз.';err.style.display='block';
+    return;
+  }
+  err.style.display='none';
+  document.getElementById('form-verify').style.display='none';
+  document.getElementById('form-verify-email').style.display='block';
+  document.getElementById('verify-email-display').textContent=pendingRegData.email;
+  document.getElementById('verify-email-code').value='';
+  document.getElementById('verify-email-err').style.display='none';
+  await sendEmailVerifyCode();
+}
+
+async function sendEmailVerifyCode(){
+  const hint=document.getElementById('verify-email-hint');
+  const err=document.getElementById('verify-email-err');
+  const result=await apiCall('/api/send-email-code',{email:pendingRegData.email});
+  if(!result.success){
+    if(err){err.textContent=result.error||'Не вдалося надіслати email';err.style.display='block';}
+    return;
+  }
+  if(hint){hint.style.display='block';hint.textContent='Код надіслано на вашу email!';}
+}
+
+async function resendEmailCode(){
+  const err=document.getElementById('verify-email-err');if(err)err.style.display='none';
+  const btn=event&&event.target?event.target:null;
+  setBtnLoading(btn,true,'Надіслати код повторно');
+  await sendEmailVerifyCode();
+  setBtnLoading(btn,false,'Надіслати код повторно');
+}
+
+async function confirmEmailCode(){
+  const entered=document.getElementById('verify-email-code').value.trim();
+  const err=document.getElementById('verify-email-err');
+  if(!entered){err.textContent='Введіть код з email';err.style.display='block';return;}
+  const btn=event&&event.target?event.target:null;
+  setBtnLoading(btn,true,'Підтвердити →');
+  const result=await apiCall('/api/verify-email-code',{email:pendingRegData.email,code:entered});
+  setBtnLoading(btn,false,'Підтвердити →');
+  if(!result.success){
+    err.textContent=result.error||'Невірний код. Перевірте email і спробуйте ще раз.';err.style.display='block';
+    return;
+  }
+  err.style.display='none';
+  document.getElementById('form-verify-email').style.display='none';
+  doReg();
+}
+
+function doReg(){
+  if(!pendingRegData)return;
+  const {name,login,phone,pass,ph,email}=pendingRegData;
+  const idx=Object.keys(players).length%8;
+  const u={id:'u_'+Date.now(),name,login,pass,phone,email,ini:name.split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase(),gender:regG,elo:null,cat:regCat,bg:ABG[idx],cl:ACL[idx],tc:0,wc:0,eh:[],ph,pending:true,justRegistered:true};
+  players[u.id]=u;pendingU.push(u);save();
+  pendingRegData=null;
+  cu=u;
+  showMain();
+}
+function doLogin(){
+  const login=document.getElementById('login-un').value.trim().toLowerCase();
+  const pass=document.getElementById('login-pw').value;
+  const err=document.getElementById('login-err');
+  const u=Object.values(players).find(p=>p.login===login&&p.pass===pass);
+  if(!u){err.textContent='Невірний логін або пароль';err.style.display='block';return;}
+  err.style.display='none';cu=u;showMain();
+}
+function doLogout(){cu=null;document.getElementById('auth-view').style.display='flex';document.getElementById('main-view').style.display='none';}
+function showMain(){
+  document.getElementById('auth-view').style.display='none';
+  document.getElementById('main-view').style.display='flex';
+  const t=document.getElementById('top-av');
+  if(t)t.innerHTML=cu.ph?`<img src="${cu.ph}" style="width:100%;height:100%;object-fit:cover;border-radius:50%"/>`:cu.ini;
+  document.getElementById('nav-admin').style.display=cu.isAdmin?'flex':'none';
+  document.getElementById('abadge').style.display=cu.isAdmin?'flex':'none';
+  updBadge();goTo('s-home');
+  if(cu.justRegistered){
+    cu.justRegistered=false;
+    if(players[cu.id])players[cu.id].justRegistered=false;
+    save();
+    showFullscreenNotice({
+      icon:'🎉',
+      title:'Акаунт успішно створено!',
+      text:'Ваша заявка надіслана. Очікуйте підтвердження рейтингу від адміністратора — після цього ви зможете брати участь у турнірах.',
+      color:'#F0C040'
+    });
+  } else if(cu.ratingJustApproved){
+    cu.ratingJustApproved=false;
+    if(players[cu.id])players[cu.id].ratingJustApproved=false;
+    const approvedElo=cu.elo;
+    save();
+    showFullscreenNotice({
+      icon:'✅',
+      title:'Рейтинг підтверджено!',
+      text:'Ваш стартовий рейтинг Ело: <b style="color:#F0C040;font-size:22px">'+approvedElo+'</b><br>Категорія: <b>'+catE(approvedElo).label+'</b><br>Тепер ви можете брати участь у турнірах!',
+      color:'#27ae60'
+    });
+  }
+}
+function showFullscreenNotice(opts){
+  const icon=opts.icon,title=opts.title,text=opts.text,color=opts.color;
+  const noticeId='notice_'+Date.now();
+  const ov=document.createElement('div');
+  ov.id=noticeId;
+  ov.style.cssText='position:fixed;inset:0;background:rgba(13,35,71,.96);z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;animation:fadeIn .25s ease-out';
+  const box=document.createElement('div');
+  box.style.cssText='background:var(--card);border-radius:20px;padding:32px 26px;max-width:360px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.4);border-top:5px solid '+color;
+  const iconEl=document.createElement('div');
+  iconEl.style.cssText='font-size:52px;margin-bottom:14px';
+  iconEl.textContent=icon;
+  const titleEl=document.createElement('div');
+  titleEl.style.cssText="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--navy);letter-spacing:1px;margin-bottom:10px";
+  titleEl.textContent=title;
+  const textEl=document.createElement('div');
+  textEl.style.cssText='font-size:14px;color:var(--text2);line-height:1.5;margin-bottom:20px';
+  textEl.innerHTML=text;
+  const btn=document.createElement('button');
+  btn.className='btnp';
+  btn.style.marginTop='0';
+  btn.textContent='Зрозуміло';
+  btn.onclick=function(){ov.remove();};
+  box.appendChild(iconEl);box.appendChild(titleEl);box.appendChild(textEl);box.appendChild(btn);
+  ov.appendChild(box);
+  document.body.appendChild(ov);
+}
+function updBadge(){
+  const cnt=pendingU.length;
+  const pb=document.getElementById('pbadge');if(pb)pb.textContent=cnt>0?cnt:'';
+  const ad=document.getElementById('adot');if(ad)ad.style.display=cnt>0?'block':'none';
+  const nd=document.getElementById('ndot');if(nd)nd.style.display=(cu?.isAdmin&&cnt>0)?'block':'none';
+}
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  const nm={'s-home':'nav-home','s-tournaments':'nav-tournaments','s-rating':'nav-rating','s-profile':'nav-profile','s-admin':'nav-admin'};
+  document.querySelectorAll('.nbtn').forEach(b=>b.classList.remove('on'));
+  if(nm[id])document.getElementById(nm[id])?.classList.add('on');
+  ({
+    's-home':renderHome,'s-tournaments':renderTours,'s-rating':renderRating,
+    's-profile':renderProfile,'s-admin':renderAdmin,'s-create':renderCreate,
+  })[id]?.();
+}
+// HOME
+function renderHome(){
+  const u=cu;if(!u)return;
+  document.getElementById('hpend').style.display=(u.pending&&!u.isAdmin)?'block':'none';
+  document.getElementById('h-elo').textContent=u.elo??'Очікує';
+  document.getElementById('h-cat').textContent=u.elo?catE(u.elo).label:'—';
+  document.getElementById('h-tourn').textContent=u.tc||0;
+  document.getElementById('h-wins').textContent=(u.tc>0?Math.round((u.wc||0)/u.tc*100):0)+'%';
+  const g=u.isAdmin?'M':u.gender;
+  document.getElementById('htoplbl').textContent='Топ '+(g==='M'?'чоловіки':'жінки');
+  const top=Object.values(players).filter(p=>!p.isAdmin&&p.elo!==null&&p.gender===g&&!p.pending).sort((a,b)=>b.elo-a.elo).slice(0,5);
+  const med=['🥇','🥈','🥉'];
+  document.getElementById('htop').innerHTML=top.map((p,i)=>`
+    <div class="prow${p.id===u.id?' me':''}">
+      <div style="width:24px;height:24px;border-radius:50%;background:${i<3?['#F5C400','#C0C0C0','#CD7F32'][i]:'var(--cream2)'};display:flex;align-items:center;justify-content:center;font-size:${i<3?12:10}px;flex-shrink:0">${med[i]||i+1}</div>
+      ${avH(p,36)}
+      <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.name}${p.id===u.id?' (я)':''}</div>
+      <div style="font-size:11px;color:var(--text2)">${catE(p.elo).label} · ${p.tc||0} турн.</div></div>
+      <div style="font-size:16px;font-weight:700;color:var(--navy);flex-shrink:0">${p.elo}</div>
+    </div>`).join('');
+}
+// TOURNAMENTS TAB
+let tTabV='sched';
+function tTab(t){
+  tTabV=t;['sched','live','done'].forEach(x=>{document.getElementById('t-'+x).style.display=x===t?'block':'none';document.getElementById('tt-'+x).className='tbtn'+(x===t?' on':'');});
+  if(t==='live')renderLive();if(t==='done')renderDone();if(t==='sched')renderSched();
+}
+function renderTours(){tTab(tTabV);}
+function renderSched(){
+  document.getElementById('cbw').style.display=cu?.isAdmin?'block':'none';
+  const up=tournaments.filter(t=>t.status==='scheduled').sort((a,b)=>a.date-b.date);
+  let html='';
+  up.forEach(t=>{
+    const d=new Date(t.date);
+    const day=d.getDate();
+    const mon=d.toLocaleString('uk',{month:'short'});
+    const startTime=t.startTime||d.toLocaleTimeString('uk',{hour:'2-digit',minute:'2-digit'});
+    const location=t.location||'—';
+    const courtsTxt=(t.courts||[1]).map(c=>'Корт '+c).join(' + ');
+    const genderBadgeClass=t.gender==='M'?'b-m':'b-f';
+    const genderLabel=t.gender==='M'?'Чоловіки':'Жінки';
+    const startBtn=(cu&&cu.isAdmin)?('<button class="btnsm" style="padding:4px 10px;font-size:10px" onclick="activateT(\''+t.id+'\')">Розпочати</button>'):'';
+    const pairsCount=Math.ceil((t.players||[]).length/2);
+    const playersCount=(t.players||[]).length;
+    const avatarsHtml=(t.players||[]).map(p=>avH(p,28)).join('');
+    html+='<div class="schc">'+
+      '<div class="schd"><div class="day">'+day+'</div><div class="mon">'+mon+'</div></div>'+
+      '<div style="flex:1">'+
+        '<div style="font-size:14px;font-weight:700">'+t.name+'</div>'+
+        '<div style="font-size:11px;color:var(--text2);margin-top:3px"><b>Початок:</b> '+startTime+'</div>'+
+        '<div style="font-size:11px;color:var(--text2);margin-top:1px"><b>Місце:</b> '+location+'</div>'+
+        '<div style="font-size:11px;color:var(--text2);margin-top:1px"><b>Корт(и):</b> '+courtsTxt+'</div>'+
+        '<div style="margin-top:7px;display:flex;gap:5px;flex-wrap:wrap">'+
+          '<span class="badge b-sched">Заплановано</span>'+
+          '<span class="badge '+genderBadgeClass+'">'+genderLabel+'</span>'+
+          '<span class="badge b-done">'+t.cat+'</span>'+
+          startBtn+
+        '</div>'+
+        '<div style="margin-top:8px">'+
+          '<div style="font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px">Пари ('+pairsCount+' пари з '+playersCount+' гравців)</div>'+
+          '<div style="display:flex;flex-wrap:wrap;gap:4px">'+avatarsHtml+'</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  });
+  document.getElementById('sched-list').innerHTML=html||'<div style="font-size:13px;color:var(--text2);padding:8px 0">Немає запланованих турнірів</div>';
+}
+function activateT(id){
+  const t=tournaments.find(x=>x.id===id);if(!t)return;
+  t.status='live';activeT=t;save();renderBracket();goTo('s-bracket');
+}
+function renderLive(){
+  document.getElementById('live-wrap').innerHTML=activeT?`
+    <div class="card" style="border-color:var(--sand2);cursor:pointer" onclick="openBracket()">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div style="font-size:14px;font-weight:700">${activeT.name}</div><div style="font-size:11px;color:var(--text2);margin-top:2px">${activeT.cat} · 2x2 · до 31 очка</div></div>
+        <span class="badge b-live">● Йде</span>
+      </div>
+      <div style="font-size:12px;color:var(--navy);font-weight:700">Відкрити сітку →</div>
+    </div>`:'<div style="font-size:13px;color:var(--text2);padding:8px 0">Немає активних турнірів</div>';
+}
+function renderDone(){
+  const done=tournaments.filter(t=>t.status==='done').sort((a,b)=>b.date-a.date);
+  document.getElementById('done-list').innerHTML=done.length?done.map(t=>`
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px">
+      <div><div style="font-size:14px;font-weight:700">${t.name}</div><div style="font-size:11px;color:var(--text2)">${new Date(t.date).toLocaleDateString('uk')} · ${t.cat}</div></div>
+      <span class="badge b-done">Завершено</span></div>
+      <div style="font-size:11px;color:var(--text2)">🏆 ${t.winner}</div></div>`).join(''):'<div style="font-size:13px;color:var(--text2);padding:8px 0">Немає завершених</div>';
+}
+// CREATE
+function setLoc(l){
+  selLocVal=l;
+  ['beach','dyn'].forEach(x=>{
+    document.getElementById('loc-'+x).className='court-opt'+(x===l?' on':'');
+    const chk=document.getElementById('lchk-'+x);if(chk){chk.className='court-chk'+(x===l?' on':'');chk.innerHTML=x===l?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'';}
+  });
+}
+function togCourt(n){
+  const idx=selCourts.indexOf(n);
+  if(idx>=0){if(selCourts.length>1)selCourts.splice(idx,1);}
+  else{if(selCourts.length<2)selCourts.push(n);}
+  [1,2].forEach(x=>{
+    const opt=document.getElementById('co-'+x);const chk=document.getElementById('cchk-'+x);
+    if(opt&&chk){
+      const on=selCourts.includes(x);
+      opt.className='court-opt'+(on?' on':'');
+      chk.className='court-chk'+(on?' on':'');
+      chk.innerHTML=on?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'';
+    }
+  });
+  const note=document.getElementById('court-note');
+  if(note)note.textContent=selCourts.length===1?'1 корт: всі ігри послідовно на одному корті.':'2 корти: ігри раунду паралельно на двох кортах.';
+}
+function selTC(el,c){el.closest('.chips').querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');tcCat=c;renderCreate();}
+function selTG(el,g){tcG=g;['tgm','tgf'].forEach(id=>{const b=document.getElementById(id);if(b)b.className='gbtn';});el.className='gbtn on';renderCreate();}
+function renderCreate(){
+  tcIds=[];
+  const range=CATS.find(c=>c.id===tcCat)?.range||[0,9999];
+  const elig=Object.values(players).filter(p=>!p.isAdmin&&p.elo!==null&&p.elo>=range[0]&&p.elo<range[1]&&!p.pending&&p.gender===tcG);
+  document.getElementById('tcc').textContent=0;document.getElementById('tpairs').textContent=0;
+  document.getElementById('tc-start').disabled=true;
+  document.getElementById('tc-players').innerHTML=elig.length?elig.map(p=>`
+    <div class="prow" onclick="togTC('${p.id}')" id="tc-${p.id}" style="cursor:pointer">
+      ${avH(p,30)}
+      <div style="flex:1"><div style="font-size:13px;font-weight:700">${p.name}</div><div style="font-size:11px;color:var(--text2)">${p.elo} Ело</div></div>
+      <div style="width:22px;height:22px;border-radius:50%;background:var(--cream2);display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);flex-shrink:0" id="tc-chk-${p.id}"></div>
+    </div>`).join(''):'<div style="font-size:13px;color:var(--text2);padding:12px 0">Немає гравців у цій категорії/статі</div>';
+}
+function togTC(id){
+  if(tcIds.includes(id))tcIds=tcIds.filter(x=>x!==id);
+  else if(tcIds.length<8)tcIds.push(id);
+  document.getElementById('tcc').textContent=tcIds.length;
+  document.getElementById('tpairs').textContent=Math.floor(tcIds.length/2);
+  document.getElementById('tc-start').disabled=tcIds.length!==8;
+  Object.values(players).forEach(p=>{
+    const row=document.getElementById('tc-'+p.id),chk=document.getElementById('tc-chk-'+p.id);
+    if(!row||!chk)return;const sel=tcIds.includes(p.id);
+    row.style.background=sel?'#EEF3FF':'var(--card)';row.style.borderColor=sel?'var(--navy)':'var(--border)';
+    chk.style.background=sel?'var(--navy)':'var(--cream2)';chk.style.borderColor=sel?'var(--navy)':'var(--border)';
+    chk.innerHTML=sel?'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>':'';
+  });
+}
+function startT(){
+  const name=document.getElementById('t-name').value.trim()||'Американка #'+(tournaments.length+1);
+  const dateStr=document.getElementById('t-date').value;
+  const dateMs=dateStr?new Date(dateStr).getTime():Date.now();
+  const d=new Date(dateMs);
+  const tp=tcIds.map(id=>players[id]);
+  const locLabel=selLocVal==='beach'?'Beach 13 — Станція Фонтана':'Dynamo Sport Complex';
+  // Assign courts to matches: if 2 courts, alternate
+  const rounds=SCH.map((r,ri)=>({round:ri+1,matches:r.map(([ta,tb],mi)=>({
+    id:`r${ri+1}m${mi+1}`,
+    teamA:[tp[ta[0]].id,tp[ta[1]].id],
+    teamB:[tp[tb[0]].id,tp[tb[1]].id],
+    sA:null,sB:null,played:false,
+    court:selCourts.length===2?(mi===0?selCourts[0]:selCourts[1]):selCourts[0]
+  }))}));
+  const t={id:'t_'+Date.now(),name,cat:tcCat,gender:tcG,date:dateMs,status:'live',
+    location:locLabel,courts:[...selCourts],
+    startTime:d.toLocaleTimeString('uk',{hour:'2-digit',minute:'2-digit'}),
+    players:tp.map(p=>({id:p.id,name:p.name,ini:p.ini,elo:p.elo,bg:p.bg,cl:p.cl,ph:null})),
+    rounds,chat:[],winner:null};
+  tournaments.push(t);activeT=t;save();renderBracket();goTo('s-bracket');
+}
+// BRACKET
+function openBracket(){if(activeT){renderBracket();goTo('s-bracket');}}
+function gpi(id){return activeT?.players.find(p=>p.id===id)||null;}
+function gpName(id){const p=gpi(id);return p?p.name.split(' ')[0]:'?';}
+
+// Standings with wins, points diff, tiebreak by elo
+function getStandings(){
+  const s={};
+  activeT.players.forEach(p=>{s[p.id]={p,pts:0,played:0,wins:0,gf:0,ga:0,eloD:0};});
+  activeT.rounds.forEach(r=>r.matches.forEach(m=>{
+    if(!m.played)return;
+    const allIds=[...m.teamA,...m.teamB];
+    m.teamA.forEach(id=>{if(s[id]){s[id].gf+=m.sA;s[id].ga+=m.sB;s[id].played++;}});
+    m.teamB.forEach(id=>{if(s[id]){s[id].gf+=m.sB;s[id].ga+=m.sA;s[id].played++;}});
+    const winA=m.sA>m.sB;
+    m.teamA.forEach(id=>{if(s[id]){s[id].pts+=m.sA;if(winA){s[id].wins++;}}});
+    m.teamB.forEach(id=>{if(s[id]){s[id].pts+=m.sB;if(!winA){s[id].wins++;}}});
+    // Elo per game (team average elo vs opponent team average elo)
+    const eloA=m.teamA.reduce((sum,id)=>{const p=gpi(id);return sum+(p?p.elo:1200);},0)/m.teamA.length;
+    const eloB=m.teamB.reduce((sum,id)=>{const p=gpi(id);return sum+(p?p.elo:1200);},0)/m.teamB.length;
+    m.teamA.forEach(id=>{if(s[id])s[id].eloD+=eG(eloA,eloB,winA?1:0);});
+    m.teamB.forEach(id=>{if(s[id])s[id].eloD+=eG(eloB,eloA,winA?0:1);});
+  }));
+  // Sort: wins desc → diff desc → lower initial elo wins tiebreak
+  return Object.values(s).sort((a,b)=>{
+    if(b.wins!==a.wins)return b.wins-a.wins;
+    const da=a.gf-a.ga,db=b.gf-b.ga;
+    if(db!==da)return db-da;
+    // tiebreak: lower initial elo ranks higher
+    return a.p.elo-b.p.elo;
+  });
+}
+function renderBracket(){
+  if(!activeT)return;
+  document.getElementById('br-title').textContent=activeT.name;
+  const played=activeT.rounds.flatMap(r=>r.matches).filter(m=>m.played).length;
+  const total=activeT.rounds.flatMap(r=>r.matches).length;
+  document.getElementById('br-prog').style.width=Math.round(played/total*100)+'%';
+  document.getElementById('br-d').textContent=played;
+  const cr=activeT.rounds.findIndex(r=>r.matches.some(m=>!m.played))+1;
+  document.getElementById('br-r').textContent=cr||7;
+  const allDone=played===total;
+  document.getElementById('br-badge').textContent=allDone?'Завершено':'● Йде';
+  document.getElementById('br-badge').className='badge '+(allDone?'b-done':'b-live');
+  document.getElementById('br-finish').style.display=allDone?'block':'none';
+  if(allDone){const st=getStandings();document.getElementById('br-winner').textContent='Переможець: '+st[0].p.name;}
+  renderBTable();renderBMatches();renderChat();
+}
+function renderBTable(){
+  const st=getStandings();
+  const med=['🥇','🥈','🥉'];
+  let rows='';
+  st.forEach((s,i)=>{
+    const me=s.p.id===cu?.id;
+    const diff=s.gf-s.ga;
+    const trCls=me?' class="me-r"':'';
+    const fw=me?700:400;
+    const meTag=me?' (я)':'';
+    const medal=med[i]||String(i+1);
+    const diffCol=diff>0?'#065F46':diff<0?'#9B1C1C':'var(--text2)';
+    const eCol=s.eloD>0?'#065F46':s.eloD<0?'#9B1C1C':'var(--text2)';
+    const dStr=(diff>0?'+':'')+diff;
+    const eStr=(s.eloD>0?'+':'')+s.eloD;
+    rows+='<tr'+trCls+'><td>'+medal+'</td>'+
+      '<td><div style="display:flex;align-items:center;gap:5px">'+avH(s.p,22)+'<span style="font-size:12px;white-space:nowrap;font-weight:'+fw+'">'+s.p.name.split(' ')[0]+meTag+'</span></div></td>'+
+      '<td style="color:var(--navy);font-weight:700">'+s.wins+'</td>'+
+      '<td style="color:var(--text2)">'+s.gf+':'+s.ga+'</td>'+
+      '<td style="color:'+diffCol+';font-weight:600">'+dStr+'</td>'+
+      '<td style="color:'+eCol+';font-weight:600;font-size:11px">'+eStr+'</td></tr>';
+  });
+  document.getElementById('br-table').innerHTML='<div style="overflow-x:auto"><table class="tbl"><thead><tr><th>#</th><th>Гравець</th><th>В</th><th>Рах.</th><th>+/-</th><th>Ело</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+function renderBMatches(){
+  let h='';
+  activeT.rounds.forEach(r=>{
+    const courtNote=activeT.courts&&activeT.courts.length===2?'(2 корти паралельно)':'(1 корт)';
+    h+=`<div style="font-size:10px;font-weight:700;color:var(--text2);letter-spacing:.8px;text-transform:uppercase;margin:12px 0 6px;display:flex;align-items:center;gap:6px">Раунд ${r.round}<span style="font-size:9px;color:var(--text2);font-weight:400;letter-spacing:.3px">${courtNote}</span></div>`;
+    r.matches.forEach(m=>{
+      const tA=m.teamA.map(id=>gpi(id)).filter(Boolean);
+      const tB=m.teamB.map(id=>gpi(id)).filter(Boolean);
+      const nameA=tA.map(p=>p.name.split(' ')[0]).join(' + ');
+      const nameB=tB.map(p=>p.name.split(' ')[0]).join(' + ');
+      const courtLabel=`Корт ${m.court}`;
+      if(m.played){
+        h+=`<div class="mrow">
+          <div class="mrow-teams">
+            <div class="mrow-team"><div style="display:flex;gap:2px">${tA.map(p=>avH(p,22)).join('')}</div><span style="font-size:11px;font-weight:600;color:var(--navy)">${nameA}</span></div>
+            <div class="mrow-score">${m.sA}:${m.sB}</div>
+            <div class="mrow-team right"><span style="font-size:11px;font-weight:600;color:var(--navy)">${nameB}</span><div style="display:flex;gap:2px">${tB.map(p=>avH(p,22)).join('')}</div></div>
+          </div>
+          <div class="mrow-meta"><span>${courtLabel}</span><span style="color:${m.sA>m.sB?'#065F46':'#9B1C1C'};font-weight:700">${m.sA>m.sB?nameA+' перемогли':nameB+' перемогли'}</span></div>
+        </div>`;
+      } else {
+        h+=`<div class="mrow pend" onclick="openMod('${m.id}')">
+          <div class="mrow-teams">
+            <div class="mrow-team"><div style="display:flex;gap:2px">${tA.map(p=>avH(p,22)).join('')}</div><span style="font-size:11px;font-weight:600">${nameA}</span></div>
+            <div class="mrow-score" style="font-size:13px;color:var(--sand2)">vs</div>
+            <div class="mrow-team right"><span style="font-size:11px;font-weight:600">${nameB}</span><div style="display:flex;gap:2px">${tB.map(p=>avH(p,22)).join('')}</div></div>
+          </div>
+          <div class="mrow-add">${courtLabel} · Натисніть щоб ввести рахунок</div>
+        </div>`;
+      }
+    });
+  });
+  document.getElementById('br-matches').innerHTML=h;
+}
+function bTab(t){
+  ['br-table','br-matches','br-chat'].forEach(id=>{document.getElementById(id).style.display='none';});
+  document.getElementById('br-'+t).style.display='block';
+  document.getElementById('br-'+t).style.display=t==='chat'?'block':'block';
+  ['tb-table','tb-matches','tb-chat'].forEach(id=>{const el=document.getElementById(id);if(el)el.className='tbtn';});
+  const a=document.getElementById('tb-'+t);if(a)a.className='tbtn on';
+  if(t==='chat')renderChat();
+}
+function openMod(id){
+  activeMid=id;
+  const m=activeT.rounds.flatMap(r=>r.matches).find(x=>x.id===id);
+  const tA=m.teamA.map(id=>gpName(id)).join(' + ');
+  const tB=m.teamB.map(id=>gpName(id)).join(' + ');
+  document.getElementById('mteamA').textContent=tA;
+  document.getElementById('mteamB').textContent=tB;
+  document.getElementById('s-a').value='';document.getElementById('s-b').value='';
+  document.getElementById('serr').style.display='none';
+  document.getElementById('smod').style.display='flex';
+}
+function closeMod(){document.getElementById('smod').style.display='none';}
+function autoFillScore(side){
+  const a=document.getElementById('s-a'),b=document.getElementById('s-b');
+  if(side==='a'){const v=parseInt(a.value)||0;if(v>=0&&v<=WIN)b.value=WIN-v;}
+  else{const v=parseInt(b.value)||0;if(v>=0&&v<=WIN)a.value=WIN-v;}
+}
+function saveScore(){
+  const a=parseInt(document.getElementById('s-a').value)||0;
+  const b=parseInt(document.getElementById('s-b').value)||0;
+  if(a+b!==WIN||a===b){document.getElementById('serr').style.display='block';return;}
+  activeT.rounds.forEach(r=>r.matches.forEach(m=>{if(m.id===activeMid){m.sA=a;m.sB=b;m.played=true;}}));
+  const idx=tournaments.findIndex(t=>t.id===activeT.id);if(idx>=0)tournaments[idx]=activeT;
+  save();closeMod();renderBracket();
+}
+function finishT(){
+  const st=getStandings();
+  activeT.status='done';activeT.winner=st[0]?.p.name;
+  st.forEach((s,i)=>{
+    const p=players[s.p.id];if(!p)return;
+    p.elo=(p.elo||1000)+s.eloD;p.tc=(p.tc||0)+1;
+    if(i===0)p.wc=(p.wc||0)+1;
+    if(!p.eh)p.eh=[];
+    p.eh.push({delta:s.eloD,t:activeT.name,place:i+1,partners:activeT.players.filter(x=>x.id!==s.p.id).map(x=>x.id)});
+    if(p.id===cu?.id)cu.elo=p.elo;
+  });
+  const idx=tournaments.findIndex(t=>t.id===activeT.id);if(idx>=0)tournaments[idx]=activeT;
+  activeT=null;save();goTo('s-tournaments');
+}
+function renderChat(){
+  if(!activeT)return;
+  const msgs=activeT.chat||[];
+  const w=document.getElementById('chat-msgs');if(!w)return;
+  w.innerHTML=msgs.length?msgs.map(m=>{
+    const mine=m.uid===cu?.id;
+    const cls=mine?'cmsg mine':'cmsg';
+    const who=mine?'Ви':m.name;
+    return '<div class="'+cls+'" style="margin-bottom:9px"><div class="cn">'+who+'</div><div class="ct">'+m.text+'</div></div>';
+  }).join(''):'<div style="font-size:12px;color:var(--text2);text-align:center;padding:16px">Поки немає повідомлень</div>';
+  w.scrollTop=w.scrollHeight;
+}
+function sendChat(){
+  const inp=document.getElementById('cinp');if(!inp||!cu||!activeT)return;
+  const text=inp.value.trim();if(!text)return;
+  if(!activeT.chat)activeT.chat=[];
+  activeT.chat.push({uid:cu.id,name:cu.name.split(' ')[0],text,time:Date.now()});
+  const idx=tournaments.findIndex(t=>t.id===activeT.id);if(idx>=0)tournaments[idx]=activeT;
+  inp.value='';save();renderChat();
+  inp.focus();
+}
+// RATING
+function rG(g){rGv=g;['M','F'].forEach(x=>{const b=document.getElementById('rg-'+x);if(b)b.className='gbtn'+(x===g?' on':'');});renderRating();}
+function rC(el,c){document.querySelectorAll('#s-rating .chips .chip').forEach(x=>x.classList.remove('on'));el.classList.add('on');rCv=c;renderRating();}
+function renderRating(){
+  let list=Object.values(players).filter(p=>!p.isAdmin&&p.elo!==null&&p.gender===rGv&&!p.pending);
+  if(rCv!=='all'){const range=CATS.find(c=>c.id===rCv)?.range||[0,9999];list=list.filter(p=>p.elo>=range[0]&&p.elo<range[1]);}
+  list.sort((a,b)=>b.elo-a.elo);
+  const med=['🥇','🥈','🥉'];
+  const rGcol=rGv==='M'?'#1e40af':'#9d174d';const rGlbl=rGv==='M'?'Чоловіки':'Жінки';
+  const rHeader='<div style="font-size:11px;font-weight:700;color:'+rGcol+';letter-spacing:.5px;margin-bottom:8px;text-transform:uppercase">'+rGlbl+'</div>';
+  const rRows=list.length?list.map((p,i)=>{
+    const meTag=p.id===cu?.id?' (я)':'';
+    const bgColor=i===0?'#F5C400':i===1?'#C0C0C0':i===2?'#CD7F32':'var(--cream2)';
+    const fSize=i<3?12:10;
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':String(i+1);
+    return '<div class="prow">'+
+      '<div style="width:24px;height:24px;border-radius:50%;background:'+bgColor+';display:flex;align-items:center;justify-content:center;font-size:'+fSize+'px;flex-shrink:0">'+medal+'</div>'+
+      avH(p,36)+
+      '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+p.name+meTag+'</div>'+
+      '<div style="font-size:11px;color:var(--text2)">'+(p.tc||0)+' турн.</div></div>'+
+      '<div style="text-align:right;flex-shrink:0"><div style="font-size:16px;font-weight:700;color:var(--navy)">'+p.elo+'</div><div style="font-size:10px;color:var(--text2)">'+catE(p.elo).label+'</div></div>'+
+      '</div>';
+  }).join(''):'<div style="font-size:13px;color:var(--text2);padding:12px 0">Немає гравців</div>';
+  document.getElementById('rlist').innerHTML=rHeader+rRows;
+  document.getElementById('escale').innerHTML=CATS.map(c=>`<div style="margin-bottom:9px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:3px"><span style="font-weight:700">${c.id}</span><span>${c.range[0]}–${c.range[1]}</span></div>
+    <div class="ebar"><div class="efill" style="width:${Math.round((c.range[1]-800)/(2200-800)*100)}%;background:${c.color}"></div></div>
+  </div>`).join('');
+}
+// PROFILE
+function renderProfile(){
+  const u=cu;if(!u)return;
+  renderPAv();
+  document.getElementById('pname').textContent=u.name;
+  document.getElementById('pcat').textContent=u.pending?'Очікує підтвердження':(u.elo?`${catE(u.elo).label} · ${u.elo} Ело`:'Адміністратор');
+  document.getElementById('pphone').textContent=u.phone?'📱 '+u.phone:'';
+  if(u.isAdmin){
+    document.getElementById('admin-prof-stats').style.display='block';
+    document.getElementById('player-prof').style.display='none';
+    renderAdminStats();
+  } else {
+    document.getElementById('admin-prof-stats').style.display='none';
+    document.getElementById('player-prof').style.display='block';
+    document.getElementById('p-elo').textContent=u.elo??'Очікує';
+    document.getElementById('p-t').textContent=u.tc||0;
+    document.getElementById('p-w').textContent=u.wc||0;
+    const gain=(u.eh||[]).reduce((s,h)=>s+h.delta,0);
+    document.getElementById('p-g').textContent=gain>0?'+'+gain:gain||'—';
+    calcE();
+    const ps={};(u.eh||[]).forEach(h=>(h.partners||[]).forEach(pid=>{if(!ps[pid])ps[pid]={g:0};ps[pid].g++;}));
+    document.getElementById('pstats').innerHTML=Object.entries(ps).sort((a,b)=>b[1].g-a[1].g).slice(0,4).map(([pid,s])=>{const p=players[pid];if(!p)return'';return`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">${avH(p,26)}<div style="flex:1;margin-left:8px;font-size:13px;font-weight:600">${p.name}</div><div style="font-size:12px;color:var(--text2)">${s.g} разом</div></div>`;}).join('')||'<div style="font-size:13px;color:var(--text2)">Дані після турнірів</div>';
+    const hist=(u.eh||[]);
+    document.getElementById('phist').innerHTML=hist.length?[...hist].reverse().map(h=>{
+    const medal=['🥇','🥈','🥉'][h.place-1]||'';
+    const dCol=h.delta>=0?'#065F46':'#9B1C1C';
+    const dStr=(h.delta>=0?'+':'')+h.delta;
+    return '<div class="card" style="margin-bottom:7px"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-size:13px;font-weight:700">'+h.t+'</div><div style="font-size:11px;color:var(--text2)">'+medal+' '+h.place+'-є місце</div></div><div style="font-size:15px;font-weight:700;color:'+dCol+'">'+dStr+' Ело</div></div></div>';
+  }).join(''):'<div style="font-size:13px;color:var(--text2)">Ще немає турнірів</div>';
+  }
+}
+function renderAdminStats(){
+  const allP=Object.values(players).filter(p=>!p.isAdmin);
+  const males=allP.filter(p=>p.gender==='M'&&!p.pending);
+  const females=allP.filter(p=>p.gender==='F'&&!p.pending);
+  const pending=allP.filter(p=>p.pending);
+  const doneCount=tournaments.filter(t=>t.status==='done').length;
+  const mkRow=p=>'<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)">'+avH(p,28)+'<div style="flex:1;font-size:13px;font-weight:600">'+p.name+'</div><div style="font-weight:700;color:var(--navy)">'+p.elo+' Ело</div></div>';
+  const topM=males.sort((a,b)=>b.elo-a.elo).slice(0,3).map(mkRow).join('');
+  const topF=females.sort((a,b)=>b.elo-a.elo).slice(0,3).map(mkRow).join('');
+  document.getElementById('admin-stats-content').innerHTML=
+    '<div class="mgrid" style="margin-bottom:12px">'+
+    '<div class="met"><div class="v">'+males.length+'</div><div class="l">Чоловіків</div></div>'+
+    '<div class="met"><div class="v">'+females.length+'</div><div class="l">Жінок</div></div>'+
+    '<div class="met"><div class="v">'+doneCount+'</div><div class="l">Турнірів</div></div>'+
+    '<div class="met"><div class="v">'+pending.length+'</div><div class="l">Очікують</div></div>'+
+    '</div>'+
+    '<div style="font-size:13px;font-weight:700;margin-bottom:6px">Топ Ело · Чоловіки</div>'+topM+
+    '<div style="font-size:13px;font-weight:700;margin:10px 0 6px">Топ Ело · Жінки</div>'+topF;
+}
+function calcE(){
+  const me=cu?.elo||1200;const sl=document.getElementById('osl');if(!sl)return;
+  const opp=parseInt(sl.value);document.getElementById('oval').textContent=opp;
+  const e=expS(me,opp);
+  document.getElementById('echance').textContent=Math.round(e*100)+'%';
+  document.getElementById('ewin').textContent='+'+Math.round(K*(1-e));
+  document.getElementById('eloss').textContent=Math.round(K*(0-e));
+}
+// ADMIN
+function renderAdmin(){
+  updBadge();
+  const selfRegCount=Object.values(players).filter(p=>p.id.startsWith('u_')).length;
+  document.getElementById('apend').innerHTML=(pendingU.length?pendingU.map(u=>`
+    <div class="card" style="border-left:3px solid var(--rust);margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        ${avH(u,36)}
+        <div style="flex:1"><div style="font-size:14px;font-weight:700">${u.name}</div>
+        <div style="font-size:11px;color:var(--text2)">@${u.login} · ${u.phone}</div>
+        <div style="font-size:11px;color:var(--text2)">${u.gender==='M'?'Чоловік':'Жінка'} · Кат. ${u.cat}</div></div>
+        <span class="badge b-pend">Очікує</span>
+      </div>
+      <div class="chips" style="margin-bottom:8px">${CATS.map(c=>`<button class="chip" id="pc-${u.id}-${c.id}" onclick="setPCat(this,'${u.id}',${Math.round((c.range[0]+c.range[1])/2)})">${c.id} (~${Math.round((c.range[0]+c.range[1])/2)})</button>`).join('')}</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+        <input type="number" id="ei-${u.id}" placeholder="800–2200" min="800" max="2200" class="inp" style="flex:1;margin-bottom:0"/>
+        <button onclick="approveU('${u.id}')" class="btnsm">Підтвердити</button>
+      </div>
+      <button onclick="rejectU('${u.id}')" class="btnd" style="margin-top:0;padding:8px">Відхилити</button>
+    </div>`).join(''):'<div style="font-size:13px;color:var(--text2)">Нових заявок немає</div>')+
+    (selfRegCount>0?'<button class="btnd" style="margin-top:10px" onclick="clearSelfRegistered()">Очистити всіх, хто зареєструвався сам ('+selfRegCount+')</button>':'');
+  // Split players by gender
+  const adminMales=Object.values(players).filter(p=>!p.isAdmin&&p.gender==='M').sort((a,b)=>(b.elo||0)-(a.elo||0));
+  const adminFemales=Object.values(players).filter(p=>!p.isAdmin&&p.gender==='F').sort((a,b)=>(b.elo||0)-(a.elo||0));
+  const pRow=p=>`<div class="prow">
+    ${avH(p,32)}
+    <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.name}</div>
+    <div style="font-size:11px;color:var(--text2)">@${p.login} · ${p.elo??'—'} Ело${p.pending?' · очікує':''}</div></div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0">
+      ${p.elo!==null?`<span class="badge b-sched">${catE(p.elo).label}</span>`:p.pending?'<span class="badge b-pend">Очікує</span>':''}
+      <button onclick="editElo('${p.id}')" style="font-size:10px;color:var(--navy);background:none;border:none;cursor:pointer;font-weight:700;font-family:'Inter',sans-serif">Змінити Ело</button>
+    </div>
+  </div>`;
+  document.getElementById('apm').innerHTML=adminMales.map(pRow).join('')||'<div style="font-size:13px;color:var(--text2)">Немає</div>';
+  document.getElementById('apf').innerHTML=adminFemales.map(pRow).join('')||'<div style="font-size:13px;color:var(--text2)">Немає</div>';
+}
+function setPCat(el,uid,elo){
+  document.querySelectorAll(`[id^="pc-${uid}-"]`).forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');pendCE[uid]=elo;
+  const inp=document.getElementById('ei-'+uid);if(inp)inp.value=elo;
+}
+function approveU(uid){
+  const u=pendingU.find(p=>p.id===uid);if(!u)return;
+  const ev=parseInt(document.getElementById('ei-'+uid)?.value)||pendCE[uid]||ES[u.cat]||1050;
+  if(players[uid]){players[uid].elo=ev;players[uid].cat=catE(ev).id;players[uid].pending=false;players[uid].ratingJustApproved=true;}
+  pendingU=pendingU.filter(p=>p.id!==uid);
+  if(cu&&cu.id===uid){cu.elo=ev;cu.cat=catE(ev).id;cu.pending=false;cu.ratingJustApproved=true;}
+  save();renderAdmin();updBadge();
+}
+function rejectU(uid){
+  if(!confirm('Відхилити та видалити?'))return;
+  delete players[uid];pendingU=pendingU.filter(p=>p.id!==uid);
+  save();renderAdmin();updBadge();
+}
+function clearSelfRegistered(){
+  const ids=Object.keys(players).filter(id=>id.startsWith('u_'));
+  if(ids.length===0)return;
+  if(!confirm('Видалити '+ids.length+' акаунт(ів), які зареєструвалися самі? Демо-гравці залишаться.'))return;
+  ids.forEach(id=>{delete players[id];});
+  pendingU=pendingU.filter(p=>!p.id.startsWith('u_'));
+  if(cu&&cu.id.startsWith('u_')){
+    cu=null;save();
+    document.getElementById('main-view').style.display='none';
+    document.getElementById('auth-view').style.display='flex';
+    return;
+  }
+  save();renderAdmin();updBadge();
+}
+function editElo(pid){
+  const p=players[pid];if(!p)return;
+  const curElo=p.elo!==null?String(p.elo):'не задано';const n=parseInt(prompt('Новий Ело для '+p.name+' (поточний: '+curElo+'):'));
+  if(n&&n>=800&&n<=2200){p.elo=n;p.cat=catE(n).id;if(cu?.id===pid)cu.elo=n;save();renderAdmin();}
+}
+load();
+document.getElementById('auth-view').style.display='flex';
+document.getElementById('main-view').style.display='none';
+</script>
+</body>
+</html>
